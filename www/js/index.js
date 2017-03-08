@@ -133,8 +133,7 @@ var app = {
     },
           
 
-    startTrackCar: function(){
-        app.log('Engine Resting');
+    startTrackCar: function(){        
         alert('Engine Resting');
         app.watchs.carWatchID = setInterval(function(){
             app.getCarRPM();
