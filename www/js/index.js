@@ -100,14 +100,15 @@ var app = {
         },  
     
     startBluetooth: function(){
-        setTimeout(function(){
+        //setTimeout(function(){
             bluetoothSerial.isEnabled(function(){
                 alert("Connecting...Process starting");
                 app.macAddress=txtdata.value;
                 alert(app.macAddress);
                 bluetoothSerial.connect(app.macAddress, function(){                    
                     app.state('bluetooth', true);
-                    bluetoothSerial.subscribe('\n');                    
+                    bluetoothSerial.subscribe('\n');   
+                    alert("Blue Connected");
                 },function(){
                     app.state('bluetooth', false);
                     alert("Unable to Connect to ODB Device");
@@ -120,7 +121,7 @@ var app = {
                 app.disconnectServer();
             });
 
-        }, 20);
+        //}, 20);
     },       
     getCarRPM: function(){        
         app.carRequest('01 0C', function(response){
