@@ -7,7 +7,7 @@
 
 
 var app = {
-    macAddress: "64:89:9A:7B:D2:36",  // get your mac address from bluetoothSerial.list
+    macAddress: "00:00:00:00:00:01",  // get your mac address from bluetoothSerial.list
     chars: "",
     trackGpsDelay: 400,
     carWatchDelay: 300,
@@ -15,8 +15,9 @@ var app = {
     Application constructor
  */
     initialize: function() {
-        this.bindEvents();
-        alert("Starting SimpleSerial app");
+        this.bindEvents();        
+        alert("Starting OBD APP"); 
+        alert(app.macAddress);
     },
     
     carData: {},
@@ -35,6 +36,7 @@ var app = {
         // check to see if Bluetooth is turned on.
         // this function is called only
         //if isEnabled(), below, returns success:
+        alert("Getting list of bluetooth connected");
         var listPorts = function() {
             // list the available BT ports:
             bluetoothSerial.list(
@@ -61,48 +63,18 @@ var app = {
 /*
     Connects if not connected, and disconnects if connected:
 */
-    manageConnection: function() {
-
-        // connect() will get called only if isConnected() (below)
-        // returns failure. In other words, if not connected, then connect:
-        var connect = function () {
-            // if not connected, do this:
-            // clear the screen and display an attempt to connect
+    manageConnection: function() {            
             app.clear();
             app.display("Attempting to connect. " +
-                "Make sure the serial port is open on the target device.");
-            // attempt to connect:
-            bluetoothSerial.connect(
-                app.macAddress,  // device to connect to
-                app.openPort,    // start listening if you succeed
-                app.showError    // show the error if you fail                
-            );
+                "Make sure the serial port is open on the target device. "+app.macAddress);             
                 app.startBluetooth();
                 app.startTrackGps();
                 app.startTrackHeading();
-                app.startTrackCar();
-        };       
-        
-
-
-        // disconnect() will get called only if isConnected() (below)
-        // returns success  In other words, if  connected, then disconnect:
-var disconnect = function () {
-            alert("attempting to disconnect");
-            // if connected, do this:
-            bluetoothSerial.disconnect(
-                app.closePort,     // stop listening to the port
-                app.showError      // show the error if you fail
-            );
-        };
-
-        // here's the real action of the manageConnection function:
-bluetoothSerial.isConnected(disconnect, connect);
-    },
+                app.startTrackCar();   
+        bluetoothSerial.isConnected(disconnect, connect);
+        },       
     
-    
-    
-      carRequest: function(command, callback){
+    carRequest: function(command, callback){
         app.sendCommand(command);
         return app.readResponse(callback);
     },
@@ -171,7 +143,7 @@ startBluetooth: function(){
         setTimeout(function(){
 
             bluetoothSerial.isEnabled(function(){
-                bluetoothSerial.connect(app.obdMac, function(){
+                bluetoothSerial.connect(app.macAddress, function(){
                     alert("Bluetooth Connected");
                     app.state('bluetooth', true);
                     bluetoothSerial.subscribe('\n');                    

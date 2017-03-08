@@ -8,13 +8,15 @@
     <body>
         <div class="app">
             <div id="ui">
-                <button id="connectButton">Connect</button>
+                <input type="text" id="txtdata">
+                <button id="connectButton">Connect</button>                
             </div>
         <div id="message">Hello.</div>
         </div>
         <script type="text/javascript" src="cordova.js"></script>
         <script type="text/javascript" src="js/index.js"></script>
         <script>
+            app.macAddress=txtdata.value;
             app.initialize();
         </script>
     </body>
