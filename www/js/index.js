@@ -100,6 +100,7 @@ var app = {
             else{
                 data = response.substr(12, 5).split(' ');
                 app.carData.rpm = Math.round(((parseInt(data[0], 16)*256) + parseInt(data[1], 16) )/4);
+                alert(app.carData.rpm);
                 if(app.carData.rpm > 0){
                     app.connections.engine = true;
                 }else{
@@ -113,29 +114,34 @@ var app = {
     getCarSpeed: function(){
         app.carRequest('01 0D', function(response){
             app.carData.speed = parseInt(response.substr(12, 2),16);
+            alert(app.carData.speed);
         });
     },
 
     getCarRadiatorTemp: function(){
         app.carRequest('01 05', function(response){
             app.carData.rad = parseInt(response.substr(12, 2),16)-40;
+            alert(app.carData.rad);
         });
     },
 
     getCarEngineLoad: function(){
         app.carRequest('01 04', function(response){
             app.carData.load = Math.round((parseInt(response.substr(12, 2),16)*100)/255);
+            alert(app.carData.load);
         });
     },
           
 
     startTrackCar: function(){
         app.log('Engine Resting');
+        alert('Engine Resting');
         app.watchs.carWatchID = setInterval(function(){
             app.getCarRPM();
             app.getCarSpeed();
             app.getCarRadiatorTemp();
-            app.getCarEngineLoad();            
+            app.getCarEngineLoad();     
+            alert('Operation Completed');
         },  app.carWatchDelay);
     },
         
@@ -170,8 +176,9 @@ startTrackGps: function(){
         app.watchs.gpsWatchID = navigator.geolocation.watchPosition(function(position){
             app.carData.latitude = position.coords.latitude;
             app.carData.longitude = position.coords.longitude;
+            alert(position.coords.latitude+' '+position.coords.longitude);
         }, function(){
-            app.log('No GPS sat');
+            alert('No GPS sat');
         }, { timeout: app.trackGpsDelay, enableHighAccuracy: true });
     },        
         
@@ -179,6 +186,7 @@ startTrackHeading: function(){
        app.watchs.headingWatchID = navigator.compass.watchHeading(function(heading){
            app.carData.heading = Math.round(heading.magneticHeading);
            app.carData.heading = Math.round(heading.magneticHeading);
+           alert(app.carData.heading );
        }, function(){
            alert('Compass Not Started');
        }, {frequency: 500});
