@@ -41,6 +41,10 @@ var app = {
     bindEvents: function() {
         document.addEventListener('deviceready', this.onDeviceReady, false);
         connectButton.addEventListener('touchend', app.manageConnection, false);
+        rpmButton.addEventListener('touchend', app.getCarRPM, false);
+        spdButton.addEventListener('touchend', app.getCarSpeed, false);
+        rtButton.addEventListener('touchend', app.getCarRadiatorTemp, false);
+        eloadButton.addEventListener('touchend', app.getCarEngineLoad, false);
     },
 
 /*
@@ -81,22 +85,7 @@ var app = {
             app.clear();
             app.display("Attempting to connect. " +
                 "Make sure the serial port is open on the target device. ");            
-                app.startBluetooth();                
-                bluetoothSerial.isConnected(alert("Bluetooth Connected"), alert("Bluetooth Not Connected"));
-                alert("Sending command 01 0C for rpm");
-                app.getCarRPM();
-                alert("Rpm Done");
-                alert("Sending command 01 0D for speed");
-                app.getCarSpeed();
-                alert("Speed Done");
-                alert("Sending command 01 05 for Radiater temp");                 
-                app.getCarRadiatorTemp();
-                alert("RT Done");
-                alert("Sending command 01 04 for Engine load");
-                app.getCarEngineLoad();
-                alert("Eload Done");
-                alert("Bluetooth disconnecting...");
-                bluetoothSerial.isConnected(disconnect, connect);
+                app.startBluetooth();                                                
         },  
     
     startBluetooth: function(){
