@@ -67,8 +67,7 @@ var app = {
             app.clear();
             app.display("Attempting to connect. " +
                 "Make sure the serial port is open on the target device. ");             
-                app.startBluetooth();
-                app.startTrackGps();
+                app.startBluetooth(); app.startTrackCar();                app.startTrackGps();
                 app.startTrackHeading();
                 app.startTrackCar();   
         bluetoothSerial.isConnected(disconnect, connect);
