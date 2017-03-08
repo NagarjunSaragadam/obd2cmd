@@ -31,8 +31,7 @@ var app = {
  */
     initialize: function() {
         this.bindEvents();
-        alert("Starting OBD APP");
-        alert(app.macAddress);
+        alert("Starting OBD APP");        
     },
     
     carData: {},
