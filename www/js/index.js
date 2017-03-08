@@ -11,12 +11,27 @@ var app = {
     chars: "",
     trackGpsDelay: 400,
     carWatchDelay: 300,
+    deepMode: false,
+    trackServerDeepDelay: 60000 * 10,
+    trackServerDelay: 500,
+    connections: {
+        engine: false,
+        server: false
+    },
+    watchs: {
+        gpsWatchID: false,
+        headingWatchID: false,
+        carWatchID: false,
+        serverWatchID: false
+    },
+    
+    
 /*
     Application constructor
  */
     initialize: function() {
-        this.bindEvents();        
-        alert("Starting OBD APP"); 
+        this.bindEvents();
+        alert("Starting OBD APP");
         alert(app.macAddress);
     },
     
@@ -66,92 +81,32 @@ var app = {
     manageConnection: function() {            
             app.clear();
             app.display("Attempting to connect. " +
-                "Make sure the serial port is open on the target device. ");             
-                app.startBluetooth(); app.startTrackCar();                app.startTrackGps();
-                app.startTrackHeading();
-                app.startTrackCar();   
-        bluetoothSerial.isConnected(disconnect, connect);
-        },       
+                "Make sure the serial port is open on the target device. ");            
+                app.startBluetooth();                
+                bluetoothSerial.isConnected(alert("Bluetooth Connected"), alert("Bluetooth Not Connected"));
+                alert("Sending command 01 0C for rpm");
+                app.getCarRPM();
+                alert("Rpm Done");
+                alert("Sending command 01 0D for speed");
+                app.getCarSpeed();
+                alert("Speed Done");
+                alert("Sending command 01 05 for Radiater temp");                 
+                app.getCarRadiatorTemp();
+                alert("RT Done");
+                alert("Sending command 01 04 for Engine load");
+                app.getCarEngineLoad();
+                alert("Eload Done");
+                alert("Bluetooth disconnecting...");
+                bluetoothSerial.isConnected(disconnect, connect);
+        },  
     
-    carRequest: function(command, callback){
-        app.sendCommand(command);
-        return app.readResponse(callback);
-    },
-
-    sendCommand: function(command){
-        bluetoothSerial.write(command+'\r');
-        app.sleep(150);
-    },
-
-    readResponse: function(callback){
-        bluetoothSerial.read(function(response){
-            if(response.substr(0, 7) == 'NO DATA') return false;
-            return callback(response);
-        });
-    },
-
-    getCarRPM: function(){
-        app.carRequest('01 0C', function(response){
-            if(response == false){
-                app.connections.engine = false;
-                app.carData.rpm = 0;
-            }
-            else{
-                data = response.substr(12, 5).split(' ');
-                app.carData.rpm = Math.round(((parseInt(data[0], 16)*256) + parseInt(data[1], 16) )/4);
-                alert(app.carData.rpm);
-                if(app.carData.rpm > 0){
-                    app.connections.engine = true;
-                }else{
-                    app.connections.engine = false;
-                    app.carData.rpm = 0;
-                }
-            }
-        });
-    },
-
-    getCarSpeed: function(){
-        app.carRequest('01 0D', function(response){
-            app.carData.speed = parseInt(response.substr(12, 2),16);
-            alert(app.carData.speed);
-        });
-    },
-
-    getCarRadiatorTemp: function(){
-        app.carRequest('01 05', function(response){
-            app.carData.rad = parseInt(response.substr(12, 2),16)-40;
-            alert(app.carData.rad);
-        });
-    },
-
-    getCarEngineLoad: function(){
-        app.carRequest('01 04', function(response){
-            app.carData.load = Math.round((parseInt(response.substr(12, 2),16)*100)/255);
-            alert(app.carData.load);
-        });
-    },
-          
-
-    startTrackCar: function(){        
-        alert('Engine Resting');
-        app.watchs.carWatchID = setInterval(function(){
-            app.getCarRPM();
-            app.getCarSpeed();
-            app.getCarRadiatorTemp();
-            app.getCarEngineLoad();     
-            alert('Operation Completed');
-        },  app.carWatchDelay);
-    },
-        
-startBluetooth: function(){
+    startBluetooth: function(){
         setTimeout(function(){
-
             bluetoothSerial.isEnabled(function(){
                 alert("Connecting...Process starting");
                 app.macAddress=txtdata.value;
                 alert(app.macAddress);
-                bluetoothSerial.connect(app.macAddress, function(){
-                    alert("Bluetooth Connected");
+                bluetoothSerial.connect(app.macAddress, function(){                    
                     app.state('bluetooth', true);
                     bluetoothSerial.subscribe('\n');                    
                 },function(){
@@ -167,31 +122,62 @@ startBluetooth: function(){
             });
 
         }, 2000);
-    },
-        
-        
-startTrackGps: function(){
-        app.watchs.gpsWatchID = navigator.geolocation.watchPosition(function(position){
-            app.carData.latitude = position.coords.latitude;
-            app.carData.longitude = position.coords.longitude;
-            alert(position.coords.latitude+' '+position.coords.longitude);
-        }, function(){
-            alert('No GPS sat');
-        }, { timeout: app.trackGpsDelay, enableHighAccuracy: true });
+    },       
+    getCarRPM: function(){        
+        app.carRequest('01 0C', function(response){
+            if(response == false){
+                app.connections.engine = false;
+                app.carData.rpm = 0;
+                alert("Engine is in off state");
+            }
+            else{
+                data = response.substr(12, 5).split(' ');
+                app.carData.rpm = Math.round(((parseInt(data[0], 16)*256) + parseInt(data[1], 16) )/4);
+                alert(Math.round(((parseInt(data[0], 16)*256) + parseInt(data[1], 16) )/4));
+                if(app.carData.rpm > 0){
+                    app.connections.engine = true;
+                    alert("Engine is in on");
+                }else{
+                    app.connections.engine = false;
+                    app.carData.rpm = 0;
+                    alert("Engine is in off state");
+                }
+            }
+        });
     },        
-        
-startTrackHeading: function(){
-       app.watchs.headingWatchID = navigator.compass.watchHeading(function(heading){
-           app.carData.heading = Math.round(heading.magneticHeading);
-           app.carData.heading = Math.round(heading.magneticHeading);
-           alert(app.carData.heading );
-       }, function(){
-           alert('Compass Not Started');
-       }, {frequency: 500});
+    getCarSpeed: function(){
+        app.carRequest('01 0D', function(response){
+            app.carData.speed = parseInt(response.substr(12, 2),16);
+            alert(parseInt(response.substr(12, 2),16));
+        });
+    },
+    getCarRadiatorTemp: function(){
+        app.carRequest('01 05', function(response){
+            app.carData.rad = parseInt(response.substr(12, 2),16)-40;
+            alert(parseInt(response.substr(12, 2),16)-40);
+        });
+    },
+    getCarEngineLoad: function(){
+        app.carRequest('01 04', function(response){
+            app.carData.load = Math.round((parseInt(response.substr(12, 2),16)*100)/255);
+            alert(Math.round((parseInt(response.substr(12, 2),16)*100)/255));
+        });
     },
     
-    
-    
+    carRequest: function(command, callback){
+        app.sendCommand(command);
+        return app.readResponse(callback);
+    },
+    sendCommand: function(command){
+        bluetoothSerial.write(command+'\r');
+        app.sleep(150);
+    },
+    readResponse: function(callback){
+        bluetoothSerial.read(function(response){
+            if(response.substr(0, 7) == 'NO DATA') return false;
+            return callback(response);
+        });
+    },    
     
 /*
     subscribes to a Bluetooth serial listener for newline
