@@ -121,7 +121,7 @@ var app = {
                 app.disconnectServer();
             });
 
-        }, 2000);
+        }, 20);
     },       
     getCarRPM: function(){        
         app.carRequest('01 0C', function(response){
