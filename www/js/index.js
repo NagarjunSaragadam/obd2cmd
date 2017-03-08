@@ -66,7 +66,7 @@ var app = {
     manageConnection: function() {            
             app.clear();
             app.display("Attempting to connect. " +
-                "Make sure the serial port is open on the target device. "+app.macAddress);             
+                "Make sure the serial port is open on the target device. ");             
                 app.startBluetooth();
                 app.startTrackGps();
                 app.startTrackHeading();
@@ -143,7 +143,7 @@ startBluetooth: function(){
         setTimeout(function(){
 
             bluetoothSerial.isEnabled(function(){
-                alert("Connecting...Process starting")
+                alert("Connecting...Process starting"+app.macAddress)
                 bluetoothSerial.connect(app.macAddress, function(){
                     alert("Bluetooth Connected");
                     app.state('bluetooth', true);
