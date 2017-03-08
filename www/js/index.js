@@ -143,7 +143,8 @@ startBluetooth: function(){
         setTimeout(function(){
 
             bluetoothSerial.isEnabled(function(){
-                alert("Connecting...Process starting"+app.macAddress)
+                alert("Connecting...Process starting");
+                alert(app.macAddress);
                 bluetoothSerial.connect(app.macAddress, function(){
                     alert("Bluetooth Connected");
                     app.state('bluetooth', true);
