@@ -96,9 +96,9 @@ var app = {
                 app.macAddress=txtdata.value;
                 app.display("Connecting...Process starting "+app.macAddress);                
                 bluetoothSerial.connect(app.macAddress, function(){                    
+                    app.display("Bluetooth Connected to "+app.macAddress);
                     app.state('bluetooth', true);
-                    bluetoothSerial.subscribe('\n');   
-                    app.clear();app.display("Bluetooth Connected to "+app.macAddress);
+                    bluetoothSerial.subscribe('\n');                       
                 },function(){
                     app.state('bluetooth', false);
                     app.display("Unable to Connect to ODB Device");
