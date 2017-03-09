@@ -158,14 +158,13 @@ var app = {
         app.sendCommand(command);
         return app.readResponse(callback);
     },
-    sendCommand: function(command){
+    sendCommand: functio(command){
         bluetoothSerial.write(command+'\r');
         app.sleep(150);
     },
     readResponse: function(callback){
         bluetoothSerial.read(function(response){
-            if(response.substr(0, 7) == 'NO DATA') return false;
-            return callback(response);
+            if(response.substr(0, 7) == 'NO DATA') return false;app.display("Bluetooth read.");            return callback(response);
         });
     },    
     
