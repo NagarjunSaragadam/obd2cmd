@@ -95,7 +95,8 @@ var app = {
                 app.macAddress=txtdata.value;
                 alert(app.macAddress);
                 bluetoothSerial.connect(app.macAddress, function(){                    
-                    app.state('bluetooth', true);
+                    app.state('bluetooth', true);alert("Bluetooth Connected");
+ 
                     bluetoothSerial.subscribe('\n');   
                     alert("Bluetooth Connected");
                 },function(){
@@ -122,7 +123,7 @@ var app = {
             else{
                 data = response.substr(12, 5).split(' ');
                 app.carData.rpm = Math.round(((parseInt(data[0], 16)*256) + parseInt(data[1], 16) )/4);
-                alert(Math.round(((parseInt(data[0], 16)*256) + parseInt(data[1], 16) )/4));
+                alert("data read");
                 if(app.carData.rpm > 0){
                     app.connections.engine = true;
                     alert("Engine is in on");
@@ -158,14 +159,14 @@ var app = {
         return app.readResponse(callback);
     },
     sendCommand: function(command){
-        bluetoothSerial.write(command+'\r',alert(command),alert("failed to read"));
+        bluetoothSerial.write(command+'\r');
         app.sleep(150);
     },
     readResponse: function(callback){
         bluetoothSerial.read(function(response){
             if(response.substr(0, 7) == 'NO DATA') return false;
             return callback(response);
-        },alert("Read failed"));
+        });
     },    
     
 /*
