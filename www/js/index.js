@@ -89,18 +89,18 @@ var app = {
         },  
     
     startBluetooth: function(){
-        //setTimeout(function(){
+        setTimeout(function(){
             bluetoothSerial.isEnabled(function(){
-                alert("Connecting...Process starting");
+                app.display("Connecting...Process starting");
                 app.macAddress=txtdata.value;
-                alert(app.macAddress);
+                app.display("Connecting...Process starting"+app.macAddress);
                 bluetoothSerial.connect(app.macAddress, function(){                    
                     app.state('bluetooth', true);
                     bluetoothSerial.subscribe('\n');   
-                    alert("Bluetooth Connected");
+                    app.display("Bluetooth Connected"+app.macAddress);
                 },function(){
                     app.state('bluetooth', false);
-                    alert("Unable to Connect to ODB Device");
+                    app.display("Unable to Connect to ODB Device");
                     app.disconnectServer();
                     app.startBluetooth();
                 });
@@ -109,15 +109,14 @@ var app = {
                 app.log('Bluetooth Off', true);
                 app.disconnectServer();
             });
-
-        //}, 20);
+        }, 2000);
     },       
     getCarRPM: function(){        
         app.carRequest('01 0C', function(response){
             if(response == false){
                 app.connections.engine = false;
                 app.carData.rpm = 0;
-                alert("Engine is in off state");
+                app.display("Engine is in off state");
             }
             else{
                 data = response.substr(12, 5).split(' ');
@@ -125,11 +124,11 @@ var app = {
                 alert(Math.round(((parseInt(data[0], 16)*256) + parseInt(data[1], 16) )/4));
                 if(app.carData.rpm > 0){
                     app.connections.engine = true;
-                    alert("Engine is in on");
+                    app.display("Engine is in on");
                 }else{
                     app.connections.engine = false;
                     app.carData.rpm = 0;
-                    alert("Engine is in off state");
+                    app.display("Engine is in off state");
                 }
             }
         });
@@ -158,14 +157,13 @@ var app = {
         return app.readResponse(callback);
     },
     sendCommand: function(command){
-        bluetoothSerial.write(command+'\r',alert(command),alert("failed to read"));
-        app.sleep(150);
+        bluetoothSerial.write(command+'\r');        
     },
     readResponse: function(callback){
         bluetoothSerial.read(function(response){
             if(response.substr(0, 7) == 'NO DATA') return false;
             return callback(response);
-        },alert("Read failed"));
+        });
     },    
     
 /*
