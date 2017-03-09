@@ -97,7 +97,7 @@ var app = {
                 bluetoothSerial.connect(app.macAddress, function(){                    
                     app.state('bluetooth', true);
                     bluetoothSerial.subscribe('\n');   
-                    alert("Blue Connected");
+                    alert("Bluetooth Connected");
                 },function(){
                     app.state('bluetooth', false);
                     alert("Unable to Connect to ODB Device");
@@ -158,14 +158,14 @@ var app = {
         return app.readResponse(callback);
     },
     sendCommand: function(command){
-        bluetoothSerial.write(command+'\r');
+        bluetoothSerial.write(command+'\r',alert(command),alert("failed to read"));
         app.sleep(150);
     },
     readResponse: function(callback){
         bluetoothSerial.read(function(response){
             if(response.substr(0, 7) == 'NO DATA') return false;
             return callback(response);
-        });
+        },alert("Read failed"));
     },    
     
 /*
