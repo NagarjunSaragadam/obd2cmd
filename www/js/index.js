@@ -92,12 +92,13 @@ var app = {
         setTimeout(function(){
             bluetoothSerial.isEnabled(function(){
                 app.display("Connecting...Process starting");
+                app.clear();
                 app.macAddress=txtdata.value;
-                app.display("Connecting...Process starting"+app.macAddress);
+                app.display("Connecting...Process starting "+app.macAddress);                
                 bluetoothSerial.connect(app.macAddress, function(){                    
                     app.state('bluetooth', true);
                     bluetoothSerial.subscribe('\n');   
-                    app.display("Bluetooth Connected"+app.macAddress);
+                    app.clear();app.display("Bluetooth Connected to "+app.macAddress);
                 },function(){
                     app.state('bluetooth', false);
                     app.display("Unable to Connect to ODB Device");
@@ -120,8 +121,7 @@ var app = {
             }
             else{
                 data = response.substr(12, 5).split(' ');
-                app.carData.rpm = Math.round(((parseInt(data[0], 16)*256) + parseInt(data[1], 16) )/4);
-                alert(Math.round(((parseInt(data[0], 16)*256) + parseInt(data[1], 16) )/4));
+                app.carData.rpm = Math.round(((parseInt(data[0], 16)*256) + parseInt(data[1], 16) )/4);                
                 if(app.carData.rpm > 0){
                     app.connections.engine = true;
                     app.display("Engine is in on");
@@ -135,20 +135,17 @@ var app = {
     },        
     getCarSpeed: function(){
         app.carRequest('01 0D', function(response){
-            app.carData.speed = parseInt(response.substr(12, 2),16);
-            alert(parseInt(response.substr(12, 2),16));
+            app.carData.speed = parseInt(response.substr(12, 2),16);            
         });
     },
     getCarRadiatorTemp: function(){
         app.carRequest('01 05', function(response){
-            app.carData.rad = parseInt(response.substr(12, 2),16)-40;
-            alert(parseInt(response.substr(12, 2),16)-40);
+            app.carData.rad = parseInt(response.substr(12, 2),16)-40;            
         });
     },
     getCarEngineLoad: function(){
         app.carRequest('01 04', function(response){
-            app.carData.load = Math.round((parseInt(response.substr(12, 2),16)*100)/255);
-            alert(Math.round((parseInt(response.substr(12, 2),16)*100)/255));
+            app.carData.load = Math.round((parseInt(response.substr(12, 2),16)*100)/255);            
         });
     },
     
