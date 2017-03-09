@@ -115,19 +115,17 @@ var app = {
     getCarRPM: function(){        
         app.carRequest('01 0C', function(response){
             if(response == false){
-                app.connections.engine = false;
-                app.carData.rpm = 0;
+                app.connections.engine = false;                
                 app.display("Engine is in off state");
             }
             else{
                 data = response.substr(12, 5).split(' ');
                 app.display(Math.round(((parseInt(data[0], 16)*256) + parseInt(data[1], 16) )/4));                
-                if(parseInt((data[0]+data[1]),16) > 0){
+                if((Math.round(((parseInt(data[0], 16)*256) + parseInt(data[1], 16) )/4)) > 0){
                     app.connections.engine = true;
                     app.display("Engine is in on");
                 }else{
-                    app.connections.engine = false;
-                    app.carData.rpm = 0;
+                    app.connections.engine = false;                    
                     app.display("Engine is in off state");
                 }
             }
@@ -135,12 +133,12 @@ var app = {
     },        
     getCarSpeed: function(){
         app.carRequest('01 0D', function(response){
-            app.display(response.substr(12, 2));            
+            app.display(parseInt(response.substr(12, 2),16));            
         });
     },
     getCarRadiatorTemp: function(){
         app.carRequest('01 05', function(response){
-            app.display(response.substr(12, 2));            
+            app.display(parseInt(response.substr(12, 2),16)-40);            
         });
     },
     getCarEngineLoad: function(){
