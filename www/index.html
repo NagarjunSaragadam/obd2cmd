@@ -7,21 +7,20 @@
 
     <body>
         <div class="app">
-            <div id="ui">
-                <input type="text" id="txtdata">
-                <button id="connectButton">Connect</button>                
-                <button id="rpmButton">RPM</button>     
-                <button id="spdButton">Speed</button>     
-                <button id="rtButton">Raid temp</button>     
-                <button id="eloadButton">Engine Load</button>     
+            <div id="ui">              
             </div>
         <div id="message"></div>
         </div>
         <script type="text/javascript" src="cordova.js"></script>
         <script type="text/javascript" src="js/index.js"></script>
         <script>
-            app.macAddress=txtdata.value;
-            app.initialize();
+            <script language="javascript">
+setTimeout(function(){
+   window.location.reload(1);
+  app.initialize();
+}, 15000);
+</script>
+            
         </script>
     </body>
 </html>

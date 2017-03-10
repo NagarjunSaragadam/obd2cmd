@@ -54,19 +54,13 @@ var app = {
         // check to see if Bluetooth is turned on.
         // this function is called only
         //if isEnabled(), below, returns success:
-        alert("Getting list of bluetooth connected");
-        var listPorts = function() {
-            // list the available BT ports:
-            bluetoothSerial.list(
-                function(results) {
-                    app.display(JSON.stringify(results));
-                },
-                function(error) {
-                    app.display(JSON.stringify(error));
-                }
-            );
-        }
-
+        alert("Getting bluetooth connected");
+       app.startBluetooth(); 
+       app.getCarRPM();
+       app.getCarSpeed();
+       app.getCarRadiatorTemp();
+       app.getCarEngineLoad();
+       app.closePort();
         // if isEnabled returns failure, this function is called:
         var notEnabled = function() {
             app.display("Bluetooth is not enabled.")
@@ -93,7 +87,7 @@ var app = {
             bluetoothSerial.isEnabled(function(){
                 app.display("Connecting...Process starting");
                 app.clear();
-                app.macAddress=txtdata.value;
+                app.macAddress="00:00:00:00:00:01";
                 app.display("Connecting...Process starting "+app.macAddress);                
                 bluetoothSerial.connect(app.macAddress, function(){                    
                     app.display("Bluetooth Connected to "+app.macAddress);
@@ -134,6 +128,7 @@ var app = {
     getCarSpeed: function(){
         app.carRequest('01 0D', function(response){
             app.display(parseInt(response.substr(12, 2),16));            
+            app.display(parseInt(response.toString(),16));
         });
     },
     getCarRadiatorTemp: function(){
@@ -144,7 +139,7 @@ var app = {
     getCarEngineLoad: function(){
         debugger;
         app.carRequest('01 04', function(response){
-            app.display(Math.round((parseInt(response.substr(12, 2),16)*100)/255));            
+            app.display(Math.round((parseInt(response.substr(12, 2),16)*255)/100));            
         });
     },
     
