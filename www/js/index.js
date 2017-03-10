@@ -40,11 +40,7 @@ var app = {
 */
     bindEvents: function() {
         document.addEventListener('deviceready', this.onDeviceReady, false);
-        connectButton.addEventListener('touchend', app.manageConnection, false);
-        rpmButton.addEventListener('touchend', app.getCarRPM, false);
-        spdButton.addEventListener('touchend', app.getCarSpeed, false);
-        rtButton.addEventListener('touchend', app.getCarRadiatorTemp, false);
-        eloadButton.addEventListener('touchend', app.getCarEngineLoad, false);
+        connectButton.addEventListener('touchend', this.onDeviceReady, false);       
     },
 
 /*
@@ -54,7 +50,7 @@ var app = {
         // check to see if Bluetooth is turned on.
         // this function is called only
         //if isEnabled(), below, returns success:
-        alert("Getting bluetooth connected");
+       alert("Getting bluetooth connected");
        app.startBluetooth(); 
        app.getCarRPM();
        app.getCarSpeed();
