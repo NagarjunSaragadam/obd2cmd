@@ -81,7 +81,7 @@ var app = {
        app.getCarEngineLoad(); 
        app.settimeout();
        app.manageallaps();
-      }, 20000);
+      }, 21000);
     },    
     
     
@@ -110,7 +110,7 @@ var app = {
                 app.log('Bluetooth Off', true);
                 app.disconnectServer();
             });
-        }, 2000);
+        }, 20000);
     },       
     getCarRPM: function(){        
         app.carRequest('01 0C', function(response){
