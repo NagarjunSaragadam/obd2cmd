@@ -40,7 +40,7 @@ var app = {
 */
     bindEvents: function() {
         document.addEventListener('deviceready', this.onDeviceReady, false);
-        connectButton.addEventListener('touchend', this.onDeviceReady, false);       
+        connectButton.addEventListener('touchend', this.manageallaps, false);       
     },
 
 /*
@@ -49,14 +49,8 @@ var app = {
     onDeviceReady: function() {
         // check to see if Bluetooth is turned on.
         // this function is called only
-        //if isEnabled(), below, returns success:
-       alert("Getting bluetooth connected");
-       app.startBluetooth(); 
-       app.getCarRPM();
-       app.getCarSpeed();
-       app.getCarRadiatorTemp();
-       app.getCarEngineLoad();
-       app.closePort();
+        //if isEnabled(), below, returns success:       
+       app.manageConnection();            
         // if isEnabled returns failure, this function is called:
         var notEnabled = function() {
             app.display("Bluetooth is not enabled.")
@@ -78,13 +72,29 @@ var app = {
                 app.startBluetooth();                                                
         },  
     
+    manageallaps:function()
+    {
+        setTimeout(function(){
+       app.getCarRPM();
+       app.getCarSpeed();
+       app.getCarRadiatorTemp();
+       app.getCarEngineLoad(); 
+       app.settimeout();
+       app.manageallaps();
+      }, 20000);
+    },    
+    
+    
+    
+    
+    
     startBluetooth: function(){
         setTimeout(function(){
             bluetoothSerial.isEnabled(function(){
                 app.display("Connecting...Process starting");
                 app.clear();
                 app.macAddress="00:00:00:00:00:01";
-                app.display("Connecting...Process starting "+app.macAddress);                
+                app.display("Connecting to "+app.macAddress);                
                 bluetoothSerial.connect(app.macAddress, function(){                    
                     app.display("Bluetooth Connected to "+app.macAddress);
                     app.state('bluetooth', true);
