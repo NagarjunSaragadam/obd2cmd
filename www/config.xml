@@ -2,10 +2,10 @@
 <widget id="net.tigoe.simpleserial" version="0.0.1" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
     <name>OBD CMD</name>
     <description>
-        Simple serial demo for Bluetooth serial Cordova plugin.
+        KPCL
     </description>
     <author>
-        Tom Igoe
+        Nagarjun
     </author>
     <content src="index.html" />
     <access origin="*" />
