@@ -87,14 +87,19 @@ var app = {
     startBluetooth: function(){
         setTimeout(function(){
             bluetoothSerial.isEnabled(function(){
-                app.display("Connecting...Process starting");
                 app.clear();
+                app.display("Connecting...Process starting");               
                 app.macAddress="00:00:00:00:00:01";
                 app.display("Connecting to "+app.macAddress);                
                 bluetoothSerial.connect(app.macAddress, function(){                    
                     app.display("Bluetooth Connected to "+app.macAddress);
                     app.state('bluetooth', true);
-                    bluetoothSerial.subscribe('\n');                       
+                    bluetoothSerial.subscribe('\n'); 
+                    app.getCarRPM();
+                    app.getCarSpeed();
+                    app.getCarRadiatorTemp();
+                    app.getCarEngineLoad();    
+                    app.clear();
                 },function(){
                     app.state('bluetooth', false);
                     app.display("Unable to Connect to ODB Device");
@@ -106,7 +111,7 @@ var app = {
                 app.log('Bluetooth Off', true);
                 app.disconnectServer();
             });
-        }, 2000);
+        }, 20000);
     },       
     getCarRPM: function(){        
         app.carRequest('01 0C', function(response){
@@ -129,8 +134,7 @@ var app = {
     },        
     getCarSpeed: function(){
         app.carRequest('01 0D', function(response){
-            app.display(parseInt(response.substr(12, 2),16));            
-            app.display(parseInt(response.toString(),16));
+            app.display(parseInt(response.substr(12, 2),16));                        
         });
     },
     getCarRadiatorTemp: function(){
