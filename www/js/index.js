@@ -50,7 +50,7 @@ var app = {
         // check to see if Bluetooth is turned on.
         // this function is called only
         //if isEnabled(), below, returns success:       
-       app.manageConnection();            
+       app.setInterval();            
         // if isEnabled returns failure, this function is called:
         var notEnabled = function() {
             app.display("Bluetooth is not enabled.")
@@ -70,22 +70,19 @@ var app = {
             app.display("Attempting to connect. " +
                 "Make sure the serial port is open on the target device. ");            
                 app.startBluetooth();                                                
-        },  
+        },      
+
     
-    manageallaps:function()
-    {       
-       app.getCarRPM();
-       app.getCarSpeed();
-       app.getCarRadiatorTemp();
-       app.getCarEngineLoad();               
-    },    
-    
-    
+    setInterval(function() {
+        app.display("Set Interval method invoked")
+        app.manageConnection(); 
+        app.disconnectServer();        
+    }, 10000);
     
     
     
     startBluetooth: function(){
-        setTimeout(function(){
+       // setTimeout(function(){
             bluetoothSerial.isEnabled(function(){
                 app.clear();
                 app.display("Connecting...Process starting");               
@@ -99,7 +96,7 @@ var app = {
                     app.getCarSpeed();
                     app.getCarRadiatorTemp();
                     app.getCarEngineLoad();    
-                    app.clear();
+                    app.clear();    
                 },function(){
                     app.state('bluetooth', false);
                     app.display("Unable to Connect to ODB Device");
@@ -111,7 +108,7 @@ var app = {
                 app.log('Bluetooth Off', true);
                 app.disconnectServer();
             });
-        }, 2000);
+       // }, 2000);
     },       
     getCarRPM: function(){        
         app.carRequest('01 0C', function(response){
