@@ -92,13 +92,12 @@ var app = {
                 bluetoothSerial.connect(app.macAddress, function(){                    
                     app.display("Bluetooth Connected to "+app.macAddress);
                     app.state('bluetooth', true);
-                    app.openPort();
+                    bluetoothSerial.subscribe('\n'); 
                     app.getCarRPM();
                     app.getCarSpeed();
                     app.getCarRadiatorTemp();
                     app.getCarEngineLoad();    
                     app.clear();    
-					app.closePort();
                 },function(){
                     app.state('bluetooth', false);
                     app.display("Unable to Connect to ODB Device");
@@ -111,8 +110,7 @@ var app = {
                 app.disconnectServer();
             });
        }, 2000);
-    }, 
-	
+    },       
     getCarRPM: function(){        
         app.carRequest('01 0C', function(response){
             if(response == false){
@@ -133,7 +131,7 @@ var app = {
         });
     },     
     
-   disconnectServer: function(){
+        disconnectServer: function(){
         if(app.socket) {
             app.socket.disconnect();
             app.socket = false;
@@ -176,7 +174,9 @@ var app = {
 */
     openPort: function() {
         // if you get a good Bluetooth serial connection:
-        app.display("Port opened: " + app.macAddress);        
+        app.display("Connected to: " + app.macAddress);
+        // change the button's name:
+        connectButton.innerHTML = "Disconnect";
         // set up a listener to listen for newlines
         // and display any new data that's come in since
         // the last newline:
@@ -191,7 +191,9 @@ var app = {
 */
     closePort: function() {
         // if you get a good Bluetooth serial connection:
-        app.display("Port Disconnected : " + app.macAddress);        
+        app.display("Disconnected from: " + app.macAddress);
+        // change the button's name:
+        connectButton.innerHTML = "Connect";
         // unsubscribe from listening:
         bluetoothSerial.unsubscribe(
                 function (data) {
