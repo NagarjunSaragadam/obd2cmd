@@ -92,12 +92,13 @@ var app = {
                 bluetoothSerial.connect(app.macAddress, function(){                    
                     app.display("Bluetooth Connected to "+app.macAddress);
                     app.state('bluetooth', true);
-                    bluetoothSerial.subscribe('\n'); 
+                    app.openPort();
                     app.getCarRPM();
                     app.getCarSpeed();
                     app.getCarRadiatorTemp();
                     app.getCarEngineLoad();    
                     app.clear();    
+					app.closePort();
                 },function(){
                     app.state('bluetooth', false);
                     app.display("Unable to Connect to ODB Device");
@@ -110,7 +111,8 @@ var app = {
                 app.disconnectServer();
             });
        }, 2000);
-    },       
+    }, 
+	
     getCarRPM: function(){        
         app.carRequest('01 0C', function(response){
             if(response == false){
@@ -131,7 +133,7 @@ var app = {
         });
     },     
     
-        disconnectServer: function(){
+   disconnectServer: function(){
         if(app.socket) {
             app.socket.disconnect();
             app.socket = false;
@@ -145,11 +147,10 @@ var app = {
     },
     getCarRadiatorTemp: function(){
         app.carRequest('01 05', function(response){
-            app.display(parseInt(response.substr(12, 2),16)-40);            
+            app.display(parseInt(response.substr(12, 2),16)-40);   			            
         });
     },
-    getCarEngineLoad: function(){
-        debugger;
+    getCarEngineLoad: function(){        
         app.carRequest('01 04', function(response){
             app.display(Math.round((parseInt(response.substr(12, 2),16)*255)/100));            
         });
@@ -175,9 +176,7 @@ var app = {
 */
     openPort: function() {
         // if you get a good Bluetooth serial connection:
-        app.display("Connected to: " + app.macAddress);
-        // change the button's name:
-        connectButton.innerHTML = "Disconnect";
+        app.display("Port opened: " + app.macAddress);        
         // set up a listener to listen for newlines
         // and display any new data that's come in since
         // the last newline:
@@ -192,9 +191,7 @@ var app = {
 */
     closePort: function() {
         // if you get a good Bluetooth serial connection:
-        app.display("Disconnected from: " + app.macAddress);
-        // change the button's name:
-        connectButton.innerHTML = "Connect";
+        app.display("Port Disconnected : " + app.macAddress);        
         // unsubscribe from listening:
         bluetoothSerial.unsubscribe(
                 function (data) {
