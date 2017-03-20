@@ -40,7 +40,7 @@ var app = {
 */
     bindEvents: function() {
        // document.addEventListener('deviceready', this.onDeviceReady, false);
-        connectButton.addEventListener('touchend', this.manageallaps, false);       
+        connectButton.addEventListener('touchend', this.manageallaps, false);    connectall.addEventListener('touchend', this.manageall, false);     
     },
 
 /*
@@ -81,8 +81,10 @@ var app = {
                 "Make sure the serial port is open on the target device. ");   
          app.startBluetooth();		 
     },
-    
-    startBluetooth: function(){
+    manageall: function () {app.getCarRPM();
+                    app.getCarSpeed();
+                    app.getCarRadiatorTemp();
+                    app.getCarEngineLoad();}, startBluetooth: function(){
         setTimeout(function(){
             bluetoothSerial.isEnabled(function(){
                 app.clear();
@@ -93,10 +95,7 @@ var app = {
                     app.display("Bluetooth Connected to "+app.macAddress);
                     app.state('bluetooth', true);
                     bluetoothSerial.subscribe('\n');   
-					app.getCarRPM();
-                    app.getCarSpeed();
-                    app.getCarRadiatorTemp();
-                    app.getCarEngineLoad();          
+				         
 					app.display("Press Do Manual Again");
                 },function(){
                     app.state('bluetooth', false);
