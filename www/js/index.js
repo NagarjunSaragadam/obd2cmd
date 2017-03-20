@@ -39,7 +39,7 @@ var app = {
     bind any events that are required on startup to listeners:
 */
     bindEvents: function() {
-        document.addEventListener('deviceready', this.onDeviceReady, false);
+       // document.addEventListener('deviceready', this.onDeviceReady, false);
         connectButton.addEventListener('touchend', this.manageallaps, false);       
     },
 
@@ -76,12 +76,14 @@ var app = {
         },      
     
     manageallaps:function(){
+        app.display("Attempting to connect. " +
+                "Make sure the serial port is open on the target device. ");   
         app.startBluetooth();
         app.disconnectServer(); 
     },
     
     startBluetooth: function(){
-       // setTimeout(function(){
+        setTimeout(function(){
             bluetoothSerial.isEnabled(function(){
                 app.clear();
                 app.display("Connecting...Process starting");               
@@ -107,7 +109,7 @@ var app = {
                 app.log('Bluetooth Off', true);
                 app.disconnectServer();
             });
-       // }, 2000);
+       }, 2000);
     },       
     getCarRPM: function(){        
         app.carRequest('01 0C', function(response){
