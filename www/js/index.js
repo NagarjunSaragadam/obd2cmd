@@ -65,20 +65,15 @@ var app = {
 /*
     Connects if not connected, and disconnects if connected:
 */
-    manageConnection: function() {            
+    manageConnection: function() {        
+         setInterval(function() {
             app.clear();
             app.display("Attempting to connect. " +
                 "Make sure the serial port is open on the target device. ");            
-                app.startBluetooth();                                                
+                app.startBluetooth();     
+                app.disconnectServer(); 
+              }, 10000);
         },      
-
-    
-    setInterval(function() {
-        app.display("Set Interval method invoked")
-        app.manageConnection(); 
-        app.disconnectServer();        
-    }, 10000);
-    
     
     
     startBluetooth: function(){
