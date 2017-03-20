@@ -75,6 +75,10 @@ var app = {
               }, 10000);
         },      
     
+    manageallaps:function(){
+        app.startBluetooth();
+        app.disconnectServer(); 
+    },
     
     startBluetooth: function(){
        // setTimeout(function(){
