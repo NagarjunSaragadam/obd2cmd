@@ -79,13 +79,7 @@ var app = {
 		app.clear();
         app.display("Attempting to connect. " +
                 "Make sure the serial port is open on the target device. ");   
-         app.startBluetooth();
-		 app.getCarRPM();
-         app.getCarSpeed();
-         app.getCarRadiatorTemp();
-         app.getCarEngineLoad();  
-        app.disconnectServer(); 
-		app.display("Refresh For new values")
+         app.startBluetooth();		 
     },
     
     startBluetooth: function(){
@@ -98,7 +92,12 @@ var app = {
                 bluetoothSerial.connect(app.macAddress, function(){                    
                     app.display("Bluetooth Connected to "+app.macAddress);
                     app.state('bluetooth', true);
-                    bluetoothSerial.subscribe('\n');                                          
+                    bluetoothSerial.subscribe('\n');   
+					app.getCarRPM();
+                    app.getCarSpeed();
+                    app.getCarRadiatorTemp();
+                    app.getCarEngineLoad();          
+					app.display("Press Do Manual Again");
                 },function(){
                     app.state('bluetooth', false);
                     app.display("Unable to Connect to ODB Device");
