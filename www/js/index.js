@@ -111,7 +111,7 @@ var app = {
                 app.log('Bluetooth Off', true);
                 app.disconnectServer();
             });
-        }, 20000);
+        }, 2000);
     },       
     getCarRPM: function(){        
         app.carRequest('01 0C', function(response){
@@ -131,7 +131,15 @@ var app = {
                 }
             }
         });
-    },        
+    },     
+    
+        disconnectServer: function(){
+        if(app.socket) {
+            app.socket.disconnect();
+            app.socket = false;
+        }
+    },
+    
     getCarSpeed: function(){
         app.carRequest('01 0D', function(response){
             app.display(parseInt(response.substr(12, 2),16));                        
