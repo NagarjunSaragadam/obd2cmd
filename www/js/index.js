@@ -40,8 +40,8 @@ var app = {
 */
     bindEvents: function() {
        // document.addEventListener('deviceready', this.onDeviceReady, false);
-        connectButton.addEventListener('touchend', this.manageallaps, false);       
-		DataButton.addEventListener('touchend', this.manageall, false);       
+        connectButton.addEventListener('touchend', this.CreateConnection, false);
+		DataButton.addEventListener('touchend', this.Getobddata, false);     
     },
 
 /*
@@ -71,20 +71,18 @@ var app = {
             app.clear();
             app.display("Attempting to connect. " +
                 "Make sure the serial port is open on the target device. ");            
-                app.startBluetooth();     
-                app.disconnectServer(); 
+                app.startBluetooth();                     
               }, 10000);
         },      
     
-    manageallaps:function(){
+    CreateConnection:function(){
 		app.clear();
         app.display("Attempting to connect. " +
                 "Make sure the serial port is open on the target device. ");   
          app.startBluetooth();		 
     },
 	
-	
-	manageall:function(){
+	Getobddata:function(){
 		            app.getCarRPM();
                     app.getCarSpeed();
                     app.getCarRadiatorTemp();
@@ -93,15 +91,14 @@ var app = {
     
     startBluetooth: function(){
         setTimeout(function(){
-            bluetoothSerial.isEnabled(function(){
-                app.clear();
+            bluetoothSerial.isEnabled(function(){                
                 app.display("Connecting...Process starting");               
                 app.macAddress="00:00:00:00:00:01";
                 app.display("Connecting to "+app.macAddress);                
                 bluetoothSerial.connect(app.macAddress, function(){                    
                     app.display("Bluetooth Connected to "+app.macAddress);
                     app.state('bluetooth', true);
-                    bluetoothSerial.subscribe('\n');   					
+                    bluetoothSerial.subscribe('\n');   										
                 },function(){
                     app.state('bluetooth', false);
                     app.display("Unable to Connect to ODB Device");
@@ -133,15 +130,13 @@ var app = {
                 }
             }
         });
-    },     
-    
-        disconnectServer: function(){
+    },         
+    disconnectServer: function(){
         if(app.socket) {
             app.socket.disconnect();
             app.socket = false;
         }
-    },
-    
+    },    
     getCarSpeed: function(){
         app.carRequest('01 0D', function(response){
             app.display(parseInt(response.substr(12, 2),16));                        
