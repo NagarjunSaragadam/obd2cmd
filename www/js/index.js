@@ -10,7 +10,7 @@ var app = {
     macAddress: "00:00:00:00:00:01",  // get your mac address from bluetoothSerial.list
     chars: "",
     trackGpsDelay: 400,
-    carWatchDelay: 300,
+    carWatchDelay: 1000,
     deepMode: false,
     trackServerDeepDelay: 60000 * 10,
     trackServerDelay: 500,
