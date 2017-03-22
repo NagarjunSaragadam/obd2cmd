@@ -157,8 +157,9 @@ var app = {
       },
     
     carRequest: function(command, callback){   
-	    bluetoothSerial.subscribe('\n');
+	    	
 	    setTimeout(function(){
+           app.startBluetooth();
         app.sendCommand(command);
         return app.readResponse(callback);  
 	}, 2000);
