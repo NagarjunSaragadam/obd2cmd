@@ -30,7 +30,8 @@ var app = {
  */
     initialize: function() {
         this.bindEvents();
-        alert("Starting OBD APP");		
+        alert("Starting OBD APP");	
+		alert(Math.floor((Math.random() * 100) + 1));
     },
     
     carData: {},
@@ -75,14 +76,10 @@ var app = {
 	
     startTrackCar: function(){
         app.display('Tracking Car Data...');
-      app.watchs.carWatchID = setInterval(function(){	
-	      if((Math.floor(Math.random()*(100-1+1)+1))/2==0)
-            app.getCarRPM();	
-	      if((Math.floor(Math.random()*(100-1+1)+1))/3==0)
-            app.getCarSpeed();
-	      if((Math.floor(Math.random()*(100-1+1)+1))/4==0)
-	      app.getCarEngineLoad(); 
-	      if((Math.floor(Math.random()*(100-1+1)+1))/5==0)
+      app.watchs.carWatchID = setInterval(function(){		      
+            app.getCarRPM();		      
+            app.getCarSpeed();	      
+	      app.getCarEngineLoad(); 	      
             app.getCarRadiatorTemp();
         }, app.carWatchDelay);
     },
@@ -90,7 +87,7 @@ var app = {
 	
 	 TestTrackCar: function(){
         app.display('Tracking Car Data...'); 	
-app.display((Math.floor(Math.random()*(100-1+1)+1));      app.watchs.carWatchID = setInterval(function(){	
+      app.watchs.carWatchID = setInterval(function(){	
 		  app.getCarSpeed();
             app.getCarRPM();
             app.getCarRadiatorTemp();		 
