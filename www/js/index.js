@@ -50,11 +50,8 @@ var app = {
 /*
     this runs when the device is ready for user interaction:
 */
-    onDeviceReady: function() {  
-	    app.watchs.carWatchID = setInterval(function(){
-       app.startBluetooth();      
-       app.getCarRPM();
-        }, app.carWatchDelay);
+    onDeviceReady: function() {  	    
+       app.startBluetooth();     
     },
 /*
     Connects if not connected, and disconnects if connected:
