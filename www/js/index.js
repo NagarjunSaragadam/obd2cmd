@@ -75,10 +75,14 @@ var app = {
 	
     startTrackCar: function(){
         app.display('Tracking Car Data...');
-      app.watchs.carWatchID = setInterval(function(){		 
-            app.getCarRPM();		 
-            app.getCarSpeed();		 
+      app.watchs.carWatchID = setInterval(function(){	
+	      if((Math.floor(Math.random()*(100-1+1)+1))/2==0)
+            app.getCarRPM();	
+	      if((Math.floor(Math.random()*(100-1+1)+1))/3==0)
+            app.getCarSpeed();
+	      if((Math.floor(Math.random()*(100-1+1)+1))/4==0)
 	      app.getCarEngineLoad(); 
+	      if((Math.floor(Math.random()*(100-1+1)+1))/5==0)
             app.getCarRadiatorTemp();
         }, app.carWatchDelay);
     },
