@@ -52,6 +52,7 @@ var app = {
 */
     onDeviceReady: function() {  	    
        app.startBluetooth();     
+       this.getCarRPM();
     },
 /*
     Connects if not connected, and disconnects if connected:
