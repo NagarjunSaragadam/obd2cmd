@@ -89,8 +89,8 @@ var app = {
 	
 	
 	 TestTrackCar: function(){
-        app.display('Tracking Car Data...');
-      app.watchs.carWatchID = setInterval(function(){	
+        app.display('Tracking Car Data...'); 	
+app.display((Math.floor(Math.random()*(100-1+1)+1));      app.watchs.carWatchID = setInterval(function(){	
 		  app.getCarSpeed();
             app.getCarRPM();
             app.getCarRadiatorTemp();		 
