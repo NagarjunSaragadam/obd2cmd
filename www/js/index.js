@@ -52,7 +52,8 @@ var app = {
 */
     onDeviceReady: function() {  
 	    app.watchs.carWatchID = setInterval(function(){
-       app.CreateConnection();          
+       app.startBluetooth();      
+       app.getCarRPM();
         }, app.carWatchDelay);
     },
 /*
