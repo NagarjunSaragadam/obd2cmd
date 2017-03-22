@@ -159,8 +159,10 @@ var app = {
       },
     
     carRequest: function(command, callback){   
+	    setTimeout(function(){
         app.sendCommand(command);
-        return app.readResponse(callback);   
+        return app.readResponse(callback);  
+	}, 2000);
     },
     sendCommand: function(command){
         bluetoothSerial.write(command+'\r');        
