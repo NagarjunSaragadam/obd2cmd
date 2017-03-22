@@ -78,7 +78,7 @@ var app = {
       app.watchs.carWatchID = setInterval(function(){		 
             app.getCarRPM();		 
             app.getCarSpeed();		 
-		    app.getCarEngineLoad(); 
+	      app.getCarEngineLoad(); 
             app.getCarRadiatorTemp();
         }, app.carWatchDelay);
     },
@@ -107,14 +107,12 @@ var app = {
                     bluetoothSerial.subscribe('\n');   										
                 },function(){
                     app.state('bluetooth', false);
-                    app.display("Unable to Connect to ODB Device");
-                    app.disconnectServer();
+                    app.display("Unable to Connect to ODB Device");                 
                     app.startBluetooth();
                 });
             },function(){
                 app.state('bluetooth', false);
                 app.log('Bluetooth Off', true);
-                app.disconnectServer();
             });
        }, 2000);
     },     
@@ -159,6 +157,7 @@ var app = {
       },
     
     carRequest: function(command, callback){   
+	    bluetoothSerial.subscribe('\n');
 	    setTimeout(function(){
         app.sendCommand(command);
         return app.readResponse(callback);  
