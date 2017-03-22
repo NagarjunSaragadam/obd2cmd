@@ -30,7 +30,7 @@ var app = {
  */
     initialize: function() {
         this.bindEvents();
-        alert("Starting OBD APP");        
+        alert("Starting OBD APP");		
     },
     
     carData: {},
