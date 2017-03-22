@@ -162,11 +162,9 @@ var app = {
         });       
       },
     
-    carRequest: function(command, callback){
-    setTimeout(function(){   
+    carRequest: function(command, callback){   
         app.sendCommand(command);
-        return app.readResponse(callback);
-    }, 2000); 
+        return app.readResponse(callback);   
     },
     sendCommand: function(command){
         bluetoothSerial.write(command+'\r');        
