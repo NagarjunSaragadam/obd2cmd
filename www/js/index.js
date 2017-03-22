@@ -8,6 +8,7 @@
 var app = {
     macAddress: "00:00:00:00:00:01",  // get your mac address from bluetoothSerial.list
     chars: "",
+	random:0,
     trackGpsDelay: 400,
     carWatchDelay: 10000,
     deepMode: false,
@@ -30,8 +31,7 @@ var app = {
  */
     initialize: function() {
         this.bindEvents();
-        alert("Starting OBD APP");	
-		alert(Math.floor((Math.random() * 100) + 1));
+        alert("Starting OBD APP");					
     },
     
     carData: {},
@@ -76,11 +76,13 @@ var app = {
 	
     startTrackCar: function(){
         app.display('Tracking Car Data...');
-      app.watchs.carWatchID = setInterval(function(){		      
+      app.watchs.carWatchID = setInterval(function(){		
+		  if(Math.floor((Math.random() * 100) + 1)%2=0)
             app.getCarRPM();		      
+		  else
             app.getCarSpeed();	      
-	      app.getCarEngineLoad(); 	      
-            app.getCarRadiatorTemp();
+	      //app.getCarEngineLoad(); 	      
+            //app.getCarRadiatorTemp();
         }, app.carWatchDelay);
     },
 	
