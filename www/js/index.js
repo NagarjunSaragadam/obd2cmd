@@ -72,11 +72,7 @@ var app = {
 		app.clear();
         app.display("Attempting to connect. " +
                 "Make sure the serial port is open on the target device. ");   
-         app.startBluetooth();	
-	 app.getCarRPM();		 
-         app.getCarSpeed();		 
-	 app.getCarEngineLoad(); 
-         app.getCarRadiatorTemp(); 
+         app.startBluetooth();		 
     },
 	
     startTrackCar: function(){
@@ -162,13 +158,10 @@ var app = {
         });       
       },
     
-    carRequest: function(command, callback){   
-	    	
-	    setTimeout(function(){
-           app.startBluetooth();
+    carRequest: function(command, callback){   	    	
         app.sendCommand(command);
         return app.readResponse(callback);  
-	}, 2000);
+	
     },
     sendCommand: function(command){
         bluetoothSerial.write(command+'\r');        
