@@ -125,7 +125,7 @@ var app = {
     },   
 	
     getCarSpeed: function(){ 	    
-	    app.carRequest('01 0D', function(response){
+	        app.carRequest('01 0D', function(response){
             app.display(parseInt(response.substr(12, 2),16));                        
 			app.display("Done CS");  
         });	 
@@ -137,8 +137,8 @@ var app = {
         });
      },
     getCarEngineLoad: function(){ 		      
-        app.carRequest('01 04', function(response){
-            app.display(Math.round((parseInt(response.substr(12, 2),16)*255)/100));            
+            app.carRequest('01 04', function(response){
+            app.display((parseInt(response.substr(12, 2),16)*255)/100);            
 			app.display("Done EL");  
         });       
       },
