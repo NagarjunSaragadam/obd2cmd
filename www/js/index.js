@@ -38,29 +38,16 @@ var app = {
     bind any events that are required on startup to listeners:
 */
     bindEvents: function() {
-       // document.addEventListener('deviceready', this.onDeviceReady, false);
-        connectButton.addEventListener('touchend', this.CreateConnection, false);
-	DataButton.addEventListener('touchend', this.startTrackCar, false);     	   
+        document.addEventListener('deviceready', this.onDeviceReady, false);        
+	    DataButton.addEventListener('touchend', this.startTrackCar, false);     	   
     },
 
 /*
     this runs when the device is ready for user interaction:
 */
-    onDeviceReady: function() {
-        // check to see if Bluetooth is turned on.
-        // this function is called only
-        //if isEnabled(), below, returns success:       
-       app.manageConnection();            
-        // if isEnabled returns failure, this function is called:
-        var notEnabled = function() {
-            app.display("Bluetooth is not enabled.")
-        }
-
-         // check if Bluetooth is on:
-        bluetoothSerial.isEnabled(
-            listPorts,
-            notEnabled
-        );
+    onDeviceReady: function() {            
+       app.CreateConnection();          
+       
     },
 /*
     Connects if not connected, and disconnects if connected:
