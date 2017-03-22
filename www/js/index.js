@@ -170,10 +170,12 @@ var app = {
         bluetoothSerial.write(command+'\r');        
     },
     readResponse: function(callback){
+		 setTimeout(function(){
         bluetoothSerial.read(function(response){
             if(response.substr(0, 7) == 'NO DATA') return false;
             return callback(response);
         });
+    }, 2000);
     },    
     
 /*
