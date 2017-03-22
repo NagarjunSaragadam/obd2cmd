@@ -83,16 +83,12 @@ var app = {
 	
     startTrackCar: function(){
         app.display('Tracking Car Data...');
-      //  app.watchs.carWatchID = setInterval(function(){
-		 app.display('Tracking Car Data RPM...');
-            app.getCarRPM();
-		 app.display('Tracking Car Data...CS');
-            app.getCarSpeed();
-		 app.display('Tracking Car Data...RT');
-            app.getCarRadiatorTemp();
-		 app.display('Tracking Car Data...EL');
+      app.watchs.carWatchID = setInterval(function(){		 
+            app.getCarRPM();		 
+            app.getCarSpeed();		 
+            app.getCarRadiatorTemp();		 
             app.getCarEngineLoad();            
-      //  }, app.carWatchDelay);
+        }, app.carWatchDelay);
     },
 	
 	
