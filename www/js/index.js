@@ -169,13 +169,11 @@ var app = {
     sendCommand: function(command){
         bluetoothSerial.write(command+'\r');        
     },
-    readResponse: function(callback){
-		 setTimeout(function(){
+    readResponse: function(callback){		
         bluetoothSerial.read(function(response){
             if(response.substr(0, 7) == 'NO DATA') return false;
             return callback(response);
-        });
-    }, 2000);
+        }); 
     },    
     
 /*
