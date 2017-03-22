@@ -5,8 +5,6 @@
     by Tom Igoe
 */
 
-
-
 var app = {
     macAddress: "00:00:00:00:00:01",  // get your mac address from bluetoothSerial.list
     chars: "",
@@ -42,9 +40,9 @@ var app = {
     bindEvents: function() {
        // document.addEventListener('deviceready', this.onDeviceReady, false);
         connectButton.addEventListener('touchend', this.CreateConnection, false);
-		DataButton.addEventListener('touchend', this.startTrackCar, false);     
-	    DataelButton.addEventListener('touchend', this.startelTrackCar, false);     
-	    DataradButton.addEventListener('touchend', this.startradTrackCar, false);     
+	DataButton.addEventListener('touchend', this.startTrackCar, false);     
+	DataelButton.addEventListener('touchend', this.startelTrackCar, false);     
+	DataradButton.addEventListener('touchend', this.startradTrackCar, false);     
     },
 
 /*
@@ -125,9 +123,9 @@ var app = {
                 app.disconnectServer();
             });
        }, 2000);
-    },       
-    getCarRPM: function(){ 
-	    setTimeout(function(){      
+    },     
+	
+    getCarRPM: function(){ 	    
         app.carRequest('01 0C', function(response){
             if(response == false){
                 app.connections.engine = false;                
@@ -145,39 +143,30 @@ var app = {
                 }
             }
         });
-	    }, 2000); 
-    },         
-    disconnectServer: function(){
-        if(app.socket) {
-            app.socket.disconnect();
-            app.socket = false;
-        }
-    },    
-    getCarSpeed: function(){ 
-	    setTimeout(function(){   
-		    app.carRequest('01 0D', function(response){
+    },   
+	
+    getCarSpeed: function(){ 	    
+	    app.carRequest('01 0D', function(response){
             app.display(parseInt(response.substr(12, 2),16));                        
-        });
-	    }, 2000);  
+        });	 
     },
-    getCarRadiatorTemp: function(){ 
-	    setTimeout(function(){    
-		    app.carRequest('01 05', function(response){
+    getCarRadiatorTemp: function(){ 	    
+            app.carRequest('01 05', function(response){
             app.display(parseInt(response.substr(12, 2),16)-40);   			            
         }); 
-	    },2000);
+	
      },
-    getCarEngineLoad: function(){ 
-		    setTimeout(function(){    
+    getCarEngineLoad: function(){ 		      
         app.carRequest('01 04', function(response){
             app.display(Math.round((parseInt(response.substr(12, 2),16)*255)/100));            
-        });
-		    }, 2000); 
-	    },
+        });       
+      },
     
     carRequest: function(command, callback){
+    setTimeout(function(){   
         app.sendCommand(command);
         return app.readResponse(callback);
+    }, 2000); 
     },
     sendCommand: function(command){
         bluetoothSerial.write(command+'\r');        
@@ -223,6 +212,13 @@ var app = {
                 app.showError
         );
     },
+	
+	  disconnectServer: function(){
+        if(app.socket) {
+            app.socket.disconnect();
+            app.socket = false;
+        }
+    }, 
 /*
     appends @error to the message div:
 */
