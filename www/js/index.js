@@ -125,7 +125,7 @@ var app = {
             });
        }, 2000);
     },       
-    getCarRPM: function(){        
+    getCarRPM: function(){  setTimeout(function(){      
         app.carRequest('01 0C', function(response){
             if(response == false){
                 app.connections.engine = false;                
@@ -142,29 +142,24 @@ var app = {
                     app.display("Engine is in off state");
                 }
             }
-        });
-    },         
+        });}, 2000);    },         
     disconnectServer: function(){
         if(app.socket) {
             app.socket.disconnect();
             app.socket = false;
         }
     },    
-    getCarSpeed: function(){
-        app.carRequest('01 0D', function(response){
+    getCarSpeed: function(){ setTimeout(function(){        app.carRequest('01 0D', function(response){
             app.display(parseInt(response.substr(12, 2),16));                        
-        });
-    },
-    getCarRadiatorTemp: function(){
-        app.carRequest('01 05', function(response){
+        });}, 2000);    },
+    getCarRadiatorTemp: function(){ setTimeout(function(){        app.carRequest('01 05', function(response){
             app.display(parseInt(response.substr(12, 2),16)-40);   			            
         });
     },
-    getCarEngineLoad: function(){        
+    getCarEngineLoad: function(){   setTimeout(function(){    
         app.carRequest('01 04', function(response){
             app.display(Math.round((parseInt(response.substr(12, 2),16)*255)/100));            
-        });
-    },
+        });}, 2000);    },
     
     carRequest: function(command, callback){
         app.sendCommand(command);
