@@ -40,9 +40,7 @@ var app = {
     bindEvents: function() {
        // document.addEventListener('deviceready', this.onDeviceReady, false);
         connectButton.addEventListener('touchend', this.CreateConnection, false);
-	DataButton.addEventListener('touchend', this.startTrackCar, false);     
-	DataelButton.addEventListener('touchend', this.startelTrackCar, false);     
-	DataradButton.addEventListener('touchend', this.startradTrackCar, false);     
+	DataButton.addEventListener('touchend', this.startTrackCar, false);     	   
     },
 
 /*
@@ -86,20 +84,18 @@ var app = {
     startTrackCar: function(){
         app.display('Tracking Car Data...');
       //  app.watchs.carWatchID = setInterval(function(){
+		 app.display('Tracking Car Data RPM...');
             app.getCarRPM();
+		 app.display('Tracking Car Data...CS');
             app.getCarSpeed();
+		 app.display('Tracking Car Data...RT');
             app.getCarRadiatorTemp();
+		 app.display('Tracking Car Data...EL');
             app.getCarEngineLoad();            
       //  }, app.carWatchDelay);
     },
 	
-	startelTrackCar: function(){            
-            app.getCarEngineLoad();  
-    },
 	
-	startradTrackCar: function(){
-            app.getCarRadiatorTemp();            
-    },
     
     startBluetooth: function(){
         setTimeout(function(){
@@ -153,8 +149,7 @@ var app = {
     getCarRadiatorTemp: function(){ 	    
             app.carRequest('01 05', function(response){
             app.display(parseInt(response.substr(12, 2),16)-40);   			            
-        }); 
-	
+        });
      },
     getCarEngineLoad: function(){ 		      
         app.carRequest('01 04', function(response){
