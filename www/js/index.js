@@ -40,6 +40,11 @@ var app = {
     bindEvents: function() {
         document.addEventListener('deviceready', this.onDeviceReady, false);        
 	    DataButton.addEventListener('touchend', this.startTrackCar, false);     	   
+		DataButtonRPM.addEventListener('touchend', this.getCarRPM, false);     	   
+		DataButtonCS.addEventListener('touchend', this.getCarSpeed, false);     	   
+		DataButtonRT.addEventListener('touchend', this.getCarRadiatorTemp, false);     	   
+		DataButtonEL.addEventListener('touchend', this.getCarEngineLoad, false);     	   
+		Testing.addEventListener('touchend', this.TestTrackCar, false);     	   
     },
 
 /*
@@ -73,11 +78,21 @@ var app = {
       app.watchs.carWatchID = setInterval(function(){		 
             app.getCarRPM();		 
             app.getCarSpeed();		 
+		    app.getCarEngineLoad(); 
+            app.getCarRadiatorTemp();
+        }, app.carWatchDelay);
+    },
+	
+	
+	 TestTrackCar: function(){
+        app.display('Tracking Car Data...');
+      app.watchs.carWatchID = setInterval(function(){	
+		  app.getCarSpeed();
+            app.getCarRPM();
             app.getCarRadiatorTemp();		 
             app.getCarEngineLoad();            
         }, app.carWatchDelay);
     },
-	
 	
     
     startBluetooth: function(){
