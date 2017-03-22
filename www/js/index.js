@@ -50,9 +50,10 @@ var app = {
 /*
     this runs when the device is ready for user interaction:
 */
-    onDeviceReady: function() {            
+    onDeviceReady: function() {  
+	    app.watchs.carWatchID = setInterval(function(){
        app.CreateConnection();          
-       
+        }, app.carWatchDelay);
     },
 /*
     Connects if not connected, and disconnects if connected:
@@ -70,7 +71,11 @@ var app = {
 		app.clear();
         app.display("Attempting to connect. " +
                 "Make sure the serial port is open on the target device. ");   
-         app.startBluetooth();		 
+         app.startBluetooth();	
+	 app.getCarRPM();		 
+         app.getCarSpeed();		 
+	 app.getCarEngineLoad(); 
+         app.getCarRadiatorTemp(); 
     },
 	
     startTrackCar: function(){
