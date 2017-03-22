@@ -31,7 +31,7 @@ var app = {
  */
     initialize: function() {
         this.bindEvents();
-        alert("Starting OBD APP");					
+        alert("Starting OBD APP");							
     },
     
     carData: {},
@@ -77,7 +77,7 @@ var app = {
     startTrackCar: function(){
         app.display('Tracking Car Data...');
       app.watchs.carWatchID = setInterval(function(){		
-		  if(Math.floor((Math.random() * 100) + 1)%2=0)
+		  if(Math.floor((Math.random() * 100) + 1)%2==0)
             app.getCarRPM();		      
 		  else
             app.getCarSpeed();	      
