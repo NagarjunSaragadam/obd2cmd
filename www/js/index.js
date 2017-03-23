@@ -9,6 +9,7 @@ var app = {
     macAddress: "00:00:00:00:00:01",  // get your mac address from bluetoothSerial.list
     chars: "",
 	random:0,
+	watchvalue:0,
     trackGpsDelay: 400,
     carWatchDelay: 3000,
     deepMode: false,
@@ -31,9 +32,8 @@ var app = {
  */
     initialize: function() {
         this.bindEvents();
-        alert("Starting OBD APP");	
-		alert(Computevalue.innerHTML);
-    },
+        alert("Starting OBD APP");			
+	},
     
     carData: {},
 /*
@@ -78,12 +78,15 @@ var app = {
     startTrackCar: function(){
         app.display('Tracking Car Data...');
       app.watchs.carWatchID = setInterval(function(){		
-		  if(Math.floor((Math.random() * 100) + 1)%2==0)
+          app.Computevalue();
+		 if(app.watchvalue==1 || app.watchvalue==2 || app.watchvalue==3||app.watchvalue==4)			
             app.getCarRPM();		      
-		  else
+         if(app.watchvalue==5 || app.watchvalue==6 || app.watchvalue==7||app.watchvalue==8)			 
             app.getCarSpeed();	      
-	      //app.getCarEngineLoad(); 	      
-            //app.getCarRadiatorTemp();
+         if(app.watchvalue==9 || app.watchvalue==10 || app.watchvalue==11||app.watchvalue==12)			
+	        app.getCarEngineLoad(); 	      
+         if(app.watchvalue==13 || app.watchvalue==14 || app.watchvalue==15||app.watchvalue==16)			
+            app.getCarRadiatorTemp();
         }, app.carWatchDelay);
     },
 	
@@ -240,11 +243,11 @@ var app = {
     clear: function() {
         var display = document.getElementById("message");
         display.innerHTML = "";
-    }
+    },
     Computevalue: function() {
-        var Divvalue = document.getElementById("Compute");
-	    Divvalue=parseInt(Divvalue,16)+1;
-        display.innerHTML = Divvalue;
+		app.watchvalue=app.watchvalue+1;    
+		if(app.watchvalue==17)
+	    app.watchvalue=1;
     }
 	
 	
