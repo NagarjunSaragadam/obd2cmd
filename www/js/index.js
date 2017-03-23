@@ -31,7 +31,8 @@ var app = {
  */
     initialize: function() {
         this.bindEvents();
-        alert("Starting OBD APP");							
+        alert("Starting OBD APP");	
+		alert(Computevalue.innerHTML);
     },
     
     carData: {},
@@ -240,5 +241,12 @@ var app = {
         var display = document.getElementById("message");
         display.innerHTML = "";
     }
+    Computevalue: function() {
+        var Divvalue = document.getElementById("Compute");
+	    Divvalue=parseInt(Divvalue,16)+1;
+        display.innerHTML = Divvalue;
+    }
+	
+	
 };      // end of app
 
