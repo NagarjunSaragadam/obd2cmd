@@ -10,7 +10,7 @@ var app = {
     chars: "",
 	random:0,
     trackGpsDelay: 400,
-    carWatchDelay: 10000,
+    carWatchDelay: 3000,
     deepMode: false,
     trackServerDeepDelay: 60000 * 10,
     trackServerDelay: 500,
