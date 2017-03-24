@@ -9,9 +9,9 @@ var app = {
     macAddress: "00:00:00:00:00:01",  // get your mac address from bluetoothSerial.list
     chars: "",
 	random:0,
-	watchvalue:0,
+	watchvalue:-1,
     trackGpsDelay: 400,
-    carWatchDelay: 3000,
+    carWatchDelay: 1000,
     deepMode: false,
     trackServerDeepDelay: 60000 * 10,
     trackServerDelay: 500,
@@ -41,12 +41,7 @@ var app = {
 */
     bindEvents: function() {
         document.addEventListener('deviceready', this.onDeviceReady, false);        
-	    DataButton.addEventListener('touchend', this.startTrackCar, false);     	   
-		DataButtonRPM.addEventListener('touchend', this.getCarRPM, false);     	   
-		DataButtonCS.addEventListener('touchend', this.getCarSpeed, false);     	   
-		DataButtonRT.addEventListener('touchend', this.getCarRadiatorTemp, false);     	   
-		DataButtonEL.addEventListener('touchend', this.getCarEngineLoad, false);     	   
-		Testing.addEventListener('touchend', this.TestTrackCar, false);     	   
+	    DataButton.addEventListener('touchend', this.startTrackCar, false);     	   		
     },
 
 /*
@@ -79,6 +74,8 @@ var app = {
         app.display('Tracking Car Data...');
       app.watchs.carWatchID = setInterval(function(){		
           app.Computevalue();
+		  if(app.watchvalue==0)
+			app.getvinumber();
 		 if(app.watchvalue==1 || app.watchvalue==2 || app.watchvalue==3||app.watchvalue==4)			
             app.getCarRPM();		      
          if(app.watchvalue==5 || app.watchvalue==6 || app.watchvalue==7||app.watchvalue==8)			 
@@ -143,7 +140,12 @@ var app = {
             }
         });
     },   
-	
+	    getvinumber: function(){ 	    
+	        app.carRequest('09 02', function(response){
+            app.display(parseInt(response.substr(12, 2),16));                        
+			app.display("Done VIN");  
+        });	 
+    },
     getCarSpeed: function(){ 	    
 	        app.carRequest('01 0D', function(response){
             app.display(parseInt(response.substr(12, 2),16));                        
