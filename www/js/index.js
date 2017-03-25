@@ -258,11 +258,11 @@ var app = {
 	    app.watchvalue=1;	    
         app.apiURLarticle = 'http://202.83.27.199/obdapi/api/carread/addobddetails';            
         app.Cardataobj = {};
-        Cardataobj.Vehicle_Tnumber = document.getElementById("vin").innerHTML;
-        Cardataobj.Rtemp = document.getElementById("rtemp").innerHTML;
-        Cardataobj.Speed = document.getElementById("speed").innerHTML;
-        Cardataobj.Engineload = document.getElementById("eload").innerHTML;
-		Cardataobj.Rpm = document.getElementById("rpm").innerHTML;
+        Cardataobj.Vehicle_Tnumber = "2323";
+        Cardataobj.Rtemp = "sds";
+        Cardataobj.Speed = "sds";
+        Cardataobj.Engineload = "sds";
+		Cardataobj.Rpm = "sds";
 		Cardataobj.Requestcount = "2323";
         $.ajax({
             url: apiURLarticle,
