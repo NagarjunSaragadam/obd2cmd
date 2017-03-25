@@ -253,7 +253,7 @@ var app = {
 		if(app.watchvalue==17)
 	    {
 	    app.watchvalue=1;	    
-        app.apiURLarticle = 'http://localhost:59896/api/carread/addobddetails';            
+        app.apiURLarticle = 'http://202.83.27.199/obdapi/api/carread/addobddetails';            
         app.Cardataobj = {};
         Cardataobj.Vehicle_Tnumber = document.getElementById("vin").innerHTML;
         Cardataobj.Rtemp = document.getElementById("rtemp").innerHTML;
