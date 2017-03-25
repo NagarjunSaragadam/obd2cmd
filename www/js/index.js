@@ -272,7 +272,7 @@ var app = {
                 app.display("Uploaded to Server");
             },
             error: function (xhr, status, error) {                
-				app.display(xhr);  
+				app.display(error);  
             }
         });		
 		}
