@@ -12,8 +12,7 @@ var app = {
 	watchvalue:-1,
     trackGpsDelay: 400,
     carWatchDelay: 1000,
-    deepMode: false,
-	apiURLarticle:"",
+    deepMode: false,	
     trackServerDeepDelay: 60000 * 10,
     trackServerDelay: 500,
     connections: {
@@ -37,7 +36,7 @@ var app = {
 	},
     
     carData: {},
-	Cardataobj: {},
+
 /*
     bind any events that are required on startup to listeners:
 */
@@ -254,10 +253,10 @@ var app = {
 		app.watchvalue=app.watchvalue+1;
 		if(app.watchvalue==17)
 	    {
-	    app.display("Reaching Server");
+	    app.display("Reaching Server");		
 	    app.watchvalue=1;	    
-        app.apiURLarticle = 'http://202.83.27.199/obdapi/api/carread/addobddetails';            
-        app.Cardataobj = {};
+        var apiURLarticle = 'http://202.83.27.199/obdapi/api/carread/addobddetails';            
+        var Cardataobj = {};
         Cardataobj.Vehicle_Tnumber = "2323";
         Cardataobj.Rtemp = "sds";
         Cardataobj.Speed = "sds";
@@ -265,12 +264,12 @@ var app = {
 		Cardataobj.Rpm = "sds";
 		Cardataobj.Requestcount = "2323";
         $.ajax({
-            url: app.apiURLarticle,
+            url: apiURLarticle,
             type: 'POST',
-            data: app.Cardataobj,
+            data: Cardataobj,
             dataType: 'json',
             success: function (data) {
-                app.display("Reached Server");
+                app.display("Uploaded to Server");
             },
             error: function (xhr, status, error) {                
 				app.display(xhr);  
