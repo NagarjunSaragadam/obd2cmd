@@ -272,11 +272,8 @@ var app = {
             success: function (data) {
                 app.display("Reached Server");
             },
-            error: function (xhr, status, error) {
-                alert(xhr);
-                alert('Request Failed. Please try again.');
-                $("#test").val("");
-                $("#test1").val("");
+            error: function (xhr, status, error) {                
+				app.display(xhr);  
             }
         });		
 		}
