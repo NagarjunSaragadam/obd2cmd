@@ -126,7 +126,8 @@ var app = {
     getCarRPM: function(){ 	    
         app.carRequest('01 0C', function(response){
             if(response == false){
-                app.connections.engine = false;                
+                app.connections.engine = false;      
+				document.getElementById("rpm").innerHTML="0";
                 app.display("Engine is in off state");
             }
             else{
