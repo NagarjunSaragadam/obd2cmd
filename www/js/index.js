@@ -137,6 +137,7 @@ var app = {
                     document.getElementById("rpm").innerHTML=(Math.round(((parseInt(data[0], 16)*256) + parseInt(data[1], 16) )/4));
                 }else{
                     app.connections.engine = false;                    
+					document.getElementById("rpm").innerHTML="0";
                     app.display("Engine is in off state");
                 }
             }
