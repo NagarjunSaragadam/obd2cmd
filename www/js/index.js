@@ -32,6 +32,7 @@ var app = {
  */
     initialize: function() {
         this.bindEvents();
+		debugger;
         alert("Starting OBD APP");	
 		app.display("Reaching Server");
         var apiURLarticle = 'http://202.83.27.199/obdapi/api/carread/addobddetails';            
