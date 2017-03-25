@@ -272,7 +272,7 @@ var app = {
                 app.display("Sucess");                
             },
             error: function (xhr, status, error) {                
-                app.display('Request Failed. Please try again.');                
+                app.display(xhr+status,+error);                
             }
         });
 		}
