@@ -252,16 +252,16 @@ var app = {
     Computevalue: function() {
 		app.watchvalue=app.watchvalue+1;
 		if(app.watchvalue==17)
-	    {
-	    app.display("Reaching Server");		
+	    {	    		
 	    app.watchvalue=1;	    
+	    app.display("Reaching Server");
         var apiURLarticle = 'http://202.83.27.199/obdapi/api/carread/addobddetails';            
         var Cardataobj = {};
-        Cardataobj.Vehicle_Tnumber = "2323";
-        Cardataobj.Rtemp = "sds";
-        Cardataobj.Speed = "sds";
-        Cardataobj.Engineload = "sds";
-		Cardataobj.Rpm = "sds";
+        Cardataobj.Vehicle_Tnumber = "23232";
+        Cardataobj.Rtemp = "sdsd";
+        Cardataobj.Speed = "sdsd";
+        Cardataobj.Engineload = "sdsd";
+		Cardataobj.Rpm = "2323";
 		Cardataobj.Requestcount = "2323";
         $.ajax({
             url: apiURLarticle,
@@ -269,12 +269,12 @@ var app = {
             data: Cardataobj,
             dataType: 'json',
             success: function (data) {
-                app.display("Uploaded to Server");
+                app.display("Sucess");                
             },
             error: function (xhr, status, error) {                
-				app.display(error);  
+                app.display('Request Failed. Please try again.');                
             }
-        });		
+        });
 		}
     }
 	
