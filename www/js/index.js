@@ -265,7 +265,7 @@ var app = {
 		Cardataobj.Rpm = "sds";
 		Cardataobj.Requestcount = "2323";
         $.ajax({
-            url: apiURLarticle,
+            url: app.apiURLarticle,
             type: 'POST',
             data: app.Cardataobj,
             dataType: 'json',
