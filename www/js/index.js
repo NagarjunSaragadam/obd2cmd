@@ -267,7 +267,7 @@ var app = {
         $.ajax({
             url: apiURLarticle,
             type: 'POST',
-            data: Cardataobj,
+            data: app.Cardataobj,
             dataType: 'json',
             success: function (data) {
                 app.display("Reached Server");
