@@ -13,7 +13,7 @@ var app = {
     trackGpsDelay: 400,
     carWatchDelay: 1000,
     deepMode: false,
-	apiURLarticle:"";
+	apiURLarticle:"",
     trackServerDeepDelay: 60000 * 10,
     trackServerDelay: 500,
     connections: {
@@ -267,7 +267,7 @@ var app = {
             data: Cardataobj,
             dataType: 'json',
             success: function (data) {
-                alert("Sucess");                
+                app.display("Reached Server");
             },
             error: function (xhr, status, error) {
                 alert(xhr);
