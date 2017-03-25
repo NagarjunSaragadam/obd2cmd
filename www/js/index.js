@@ -252,6 +252,7 @@ var app = {
 		app.watchvalue=app.watchvalue+1;
 		if(app.watchvalue==17)
 	    {
+	    app.display("Reaching Server");
 	    app.watchvalue=1;	    
         app.apiURLarticle = 'http://202.83.27.199/obdapi/api/carread/addobddetails';            
         app.Cardataobj = {};
