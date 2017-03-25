@@ -13,6 +13,7 @@ var app = {
     trackGpsDelay: 400,
     carWatchDelay: 1000,
     deepMode: false,
+	apiURLarticle:"";
     trackServerDeepDelay: 60000 * 10,
     trackServerDelay: 500,
     connections: {
@@ -36,6 +37,7 @@ var app = {
 	},
     
     carData: {},
+	Cardataobj: {},
 /*
     bind any events that are required on startup to listeners:
 */
@@ -132,7 +134,7 @@ var app = {
                 app.display(Math.round(((parseInt(data[0], 16)*256) + parseInt(data[1], 16) )/4));                
                 if((Math.round(((parseInt(data[0], 16)*256) + parseInt(data[1], 16) )/4)) > 0){
                     app.connections.engine = true;
-                    app.display("Engine is in on");
+                    document.getElementById("rpm").innerHTML=(Math.round(((parseInt(data[0], 16)*256) + parseInt(data[1], 16) )/4));
                 }else{
                     app.connections.engine = false;                    
                     app.display("Engine is in off state");
@@ -142,26 +144,26 @@ var app = {
     },   
 	    getvinumber: function(){ 	    
 	        app.carRequest('09 02', function(response){
-            app.display(parseInt(response.substr(12, 2),16));                        
-			app.display("Done VIN");  
+            app.display(parseInt(response.substr(12, 2),16));                        			  
+			document.getElementById("vin").innerHTML=(parseInt(response.substr(12, 2),16));
         });	 
     },
     getCarSpeed: function(){ 	    
 	        app.carRequest('01 0D', function(response){
             app.display(parseInt(response.substr(12, 2),16));                        
-			app.display("Done CS");  
+			document.getElementById("speed").innerHTML=(parseInt(response.substr(12, 2),16));
         });	 
     },
     getCarRadiatorTemp: function(){ 	    
             app.carRequest('01 05', function(response){
             app.display(parseInt(response.substr(12, 2),16)-40);   			            
-		    app.display("Done RT");  
+		    document.getElementById("rtemp").innerHTML=(parseInt(response.substr(12, 2),16)-40);  
         });
      },
     getCarEngineLoad: function(){ 		      
             app.carRequest('01 04', function(response){
             app.display((parseInt(response.substr(12, 2),16)*255)/100);            
-			app.display("Done EL");  
+			document.getElementById("eload").innerHTML=(parseInt(response.substr(12, 2),16));  
         });       
       },
     
@@ -247,10 +249,40 @@ var app = {
         display.innerHTML = "";
     },
     Computevalue: function() {
-		app.watchvalue=app.watchvalue+1;    
+		app.watchvalue=app.watchvalue+1;
 		if(app.watchvalue==17)
-	    app.watchvalue=1;
+	    {
+	    app.watchvalue=1;	    
+        app.apiURLarticle = 'http://localhost:59896/api/carread/addobddetails';            
+        app.Cardataobj = {};
+        Cardataobj.Vehicle_Tnumber = document.getElementById("vin").innerHTML;
+        Cardataobj.Rtemp = document.getElementById("rtemp").innerHTML;
+        Cardataobj.Speed = document.getElementById("speed").innerHTML;
+        Cardataobj.Engineload = document.getElementById("eload").innerHTML;
+		Cardataobj.Rpm = document.getElementById("rpm").innerHTML;
+		Cardataobj.Requestcount = "2323";
+        $.ajax({
+            url: apiURLarticle,
+            type: 'POST',
+            data: Cardataobj,
+            dataType: 'json',
+            success: function (data) {
+                alert("Sucess");                
+            },
+            error: function (xhr, status, error) {
+                alert(xhr);
+                alert('Request Failed. Please try again.');
+                $("#test").val("");
+                $("#test1").val("");
+            }
+        });		
+		}
     }
+	
+	  
+        
+    
+	
 	
 	
 };      // end of app
