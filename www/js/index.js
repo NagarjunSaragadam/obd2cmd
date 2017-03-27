@@ -60,7 +60,7 @@ var app = {
 	
 	makemobilesleep: function(){
 		window.plugins.insomnia.allowSleepAgain();
-	}
+	},
 /*
     Connects if not connected, and disconnects if connected:
 */
