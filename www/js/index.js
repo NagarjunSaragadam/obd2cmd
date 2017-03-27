@@ -191,7 +191,7 @@ var app = {
         Cardataobj.Speed = document.getElementById("speed").innerHTML;
         Cardataobj.Engineload = document.getElementById("eload").innerHTML;
 		Cardataobj.Rpm = document.getElementById("rpm").innerHTML;
-		Cardataobj.Requestcount = '00:00:00:00:01;
+		Cardataobj.Requestcount = '00:00:00:00:01';
         $.ajax({
             url: apiURLarticle,
             type: 'POST',
