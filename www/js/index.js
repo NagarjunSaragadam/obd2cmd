@@ -43,8 +43,11 @@ var app = {
     bind any events that are required on startup to listeners:
 */
     bindEvents: function() {
-        document.addEventListener('deviceready', this.onDeviceReady, false);        
+        document.addEventListener('deviceready', this.onDeviceReady, false);      
+		window.plugins.insomnia.keepAwake();
 	    DataButton.addEventListener('touchend', this.startTrackCar, false);     	   		
+		Sleepmobile.addEventListener('touchend', this.makemobilesleep, false);     	   		
+		
     },
 
 /*
@@ -54,6 +57,10 @@ var app = {
        app.CreateConnection();    	   
       
     },
+	
+	makemobilesleep: function(){
+		window.plugins.insomnia.allowSleepAgain();
+	}
 /*
     Connects if not connected, and disconnects if connected:
 */
