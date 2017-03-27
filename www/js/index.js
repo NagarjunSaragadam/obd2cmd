@@ -56,9 +56,9 @@ var app = {
     startTrackCar: function(){
         app.display('Tracking Car Data...');
       app.watchs.carWatchID = setInterval(function(){		
-          app.Computevalue();
+            app.Computevalue();
 		  if(app.watchvalue==-1)			  		    
-			app.CreateConnection();	
+			app.startBluetooth();	
 		  if(app.watchvalue==0)			  		    
 			app.getvinumber();		    			  
 		 if(app.watchvalue==1 || app.watchvalue==2 || app.watchvalue==3||app.watchvalue==4)			
