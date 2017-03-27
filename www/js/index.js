@@ -9,7 +9,7 @@ var app = {
     macAddress: "00:00:00:00:00:01",  // get your mac address from bluetoothSerial.list
     chars: "",
 	random:0,
-	watchvalue:-1,
+	watchvalue:-2,
     trackGpsDelay: 400,
 	bluetoothcond:0,
     carWatchDelay: 1000,
@@ -44,27 +44,21 @@ var app = {
 */
     bindEvents: function() {
         document.addEventListener('deviceready', this.onDeviceReady, false);      		
-	    DataButton.addEventListener('touchend', this.startTrackCar, false);     	   				 	   		
-		
     },
 
 /*
     this runs when the device is ready for user interaction:
 */
     onDeviceReady: function() {  	    
-       app.CreateConnection();
-    },
-     
-    
-    CreateConnection:function(){
-		 app.clear();        
-         app.startBluetooth();		
+       app.startTrackCar();
     },
 	
     startTrackCar: function(){
         app.display('Tracking Car Data...');
       app.watchs.carWatchID = setInterval(function(){		
           app.Computevalue();
+		  if(app.watchvalue==-1)			  		    
+			app.CreateConnection();	
 		  if(app.watchvalue==0)			  		    
 			app.getvinumber();		    			  
 		 if(app.watchvalue==1 || app.watchvalue==2 || app.watchvalue==3||app.watchvalue==4)			
@@ -77,18 +71,6 @@ var app = {
             app.getCarRadiatorTemp();
         }, app.carWatchDelay);
     },
-	
-	
-	 TestTrackCar: function(){
-        app.display('Tracking Car Data...'); 	
-      app.watchs.carWatchID = setInterval(function(){	
-		  app.getCarSpeed();
-            app.getCarRPM();
-            app.getCarRadiatorTemp();		 
-            app.getCarEngineLoad();            
-        }, app.carWatchDelay);
-    },
-	
     
     startBluetooth: function(){
         setTimeout(function(){
