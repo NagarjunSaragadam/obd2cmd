@@ -43,10 +43,8 @@ var app = {
     bind any events that are required on startup to listeners:
 */
     bindEvents: function() {
-        document.addEventListener('deviceready', this.onDeviceReady, false);      
-		window.plugins.insomnia.keepAwake();
-	    DataButton.addEventListener('touchend', this.startTrackCar, false);     	   		
-		Sleepmobile.addEventListener('touchend', this.makemobilesleep, false);     	   		
+        document.addEventListener('deviceready', this.onDeviceReady, false);      		
+	    DataButton.addEventListener('touchend', this.startTrackCar, false);     	   				 	   		
 		
     },
 
@@ -54,29 +52,14 @@ var app = {
     this runs when the device is ready for user interaction:
 */
     onDeviceReady: function() {  	    
-       app.CreateConnection();    	   
+       app.startTrackCar();   	   
       
     },
-	
-	makemobilesleep: function(){
-		window.plugins.insomnia.allowSleepAgain();
-	},
-/*
-    Connects if not connected, and disconnects if connected:
-*/
-    manageConnection: function() {        
-         setInterval(function() {
-            app.clear();
-            app.display("Attempting to connect. " +
-                "Make sure the serial port is open on the target device. ");            
-                app.startBluetooth();                     
-              }, 10000);
-        },      
+     
     
     CreateConnection:function(){
-		app.clear();        
-         app.startBluetooth();		 
-		 app.startTrackCar();
+		 app.clear();        
+         app.startBluetooth();		
     },
 	
     startTrackCar: function(){
@@ -84,7 +67,10 @@ var app = {
       app.watchs.carWatchID = setInterval(function(){		
           app.Computevalue();
 		  if(app.watchvalue==0)
-			app.getvinumber();
+			  {
+		    app.CreateConnection();
+			app.getvinumber();		    
+			  }
 		 if(app.watchvalue==1 || app.watchvalue==2 || app.watchvalue==3||app.watchvalue==4)			
             app.getCarRPM();		      
          if(app.watchvalue==5 || app.watchvalue==6 || app.watchvalue==7||app.watchvalue==8)			 
