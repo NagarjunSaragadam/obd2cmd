@@ -253,8 +253,7 @@ var app = {
             data: Cardataobj,
             dataType: 'json',
             success: function (data) {
-                app.display("Sucess");                
-				app.verifyconnection(); 
+                app.display("Sucess");                				
             },
             error: function (xhr, status, error) {                
                 app.display(xhr+status,+error);                
