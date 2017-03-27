@@ -11,6 +11,7 @@ var app = {
 	random:0,
 	watchvalue:-1,
     trackGpsDelay: 400,
+	bluetoothcond:0,
     carWatchDelay: 1000,
     deepMode: false,	
     trackServerDeepDelay: 60000 * 10,
@@ -50,7 +51,7 @@ var app = {
     this runs when the device is ready for user interaction:
 */
     onDeviceReady: function() {  	    
-       app.CreateConnection();    
+       app.CreateConnection();    	   
       
     },
 /*
@@ -66,10 +67,9 @@ var app = {
         },      
     
     CreateConnection:function(){
-		app.clear();
-        app.display("Attempting to connect. " +
-                "Make sure the serial port is open on the target device. ");   
+		app.clear();        
          app.startBluetooth();		 
+		 app.startTrackCar();
     },
 	
     startTrackCar: function(){
@@ -146,8 +146,8 @@ var app = {
     },   
 	    getvinumber: function(){ 	    
 	        app.carRequest('09 02', function(response){
-            app.display(parseInt(response.substr(12, 2),16));                        			  
-			document.getElementById("vin").innerHTML=(parseInt(response.substr(12, 2),16));
+            app.display(response.toString());                        			  
+			document.getElementById("vin").innerHTML=(response.toString());
         });	 
     },
     getCarSpeed: function(){ 	    
@@ -168,6 +168,18 @@ var app = {
 			document.getElementById("eload").innerHTML=(parseInt(response.substr(12, 2),16));  
         });       
       },
+	
+	verifyconnection: function(){
+		bluetoothSerial.isConnected(
+    function() {
+        app.bluetoothcond=1;
+    },
+    function() {
+        app.bluetoothcond=0;
+    }
+    );
+    }
+	
     
     carRequest: function(command, callback){   	    	
         app.sendCommand(command);
@@ -263,7 +275,7 @@ var app = {
         Cardataobj.Speed = document.getElementById("speed").innerHTML;
         Cardataobj.Engineload = document.getElementById("eload").innerHTML;
 		Cardataobj.Rpm = document.getElementById("rpm").innerHTML;
-		Cardataobj.Requestcount = "001";
+		Cardataobj.Requestcount = app.macAddress;
         $.ajax({
             url: apiURLarticle,
             type: 'POST',
@@ -276,6 +288,9 @@ var app = {
                 app.display(xhr+status,+error);                
             }
         });
+	    app.verifyconnection(); 
+			if(app.bluetoothcond==0)
+				app.CreateConnection();
 		}
     }
 	
