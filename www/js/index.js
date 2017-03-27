@@ -12,7 +12,7 @@ var app = {
 	watchvalue:-2,
     trackGpsDelay: 400,
 	bluetoothcond:0,
-    carWatchDelay: 1000,
+    carWatchDelay: 2500,
     deepMode: false,	
     trackServerDeepDelay: 60000 * 10,
     trackServerDelay: 500,
@@ -33,8 +33,6 @@ var app = {
  */
     initialize: function() {
         this.bindEvents();				
-        alert("Starting OBD APP");		
-		
 	},
     
     carData: {},
@@ -70,8 +68,7 @@ var app = {
          if(app.watchvalue==13 || app.watchvalue==14 || app.watchvalue==15||app.watchvalue==16)			
             app.getCarRadiatorTemp();
         }, app.carWatchDelay);
-    },
-    
+    },    
     startBluetooth: function(){
         setTimeout(function(){
             bluetoothSerial.isEnabled(function(){                
@@ -92,8 +89,7 @@ var app = {
                 app.log('Bluetooth Off', true);
             });
        }, 2000);
-    },     
-	
+    },  
     getCarRPM: function(){ 	    
         app.carRequest('01 0C', function(response){
             if(response == false){
@@ -115,7 +111,7 @@ var app = {
             }
         });
     },   
-	    getvinumber: function(){ 	    
+	getvinumber: function(){ 	    
 	        app.carRequest('09 02', function(response){
             app.display(response.toString());                        			  
 			document.getElementById("vin").innerHTML=(response.toString());
@@ -138,18 +134,8 @@ var app = {
             app.display((parseInt(response.substr(12, 2),16)*255)/100);            
 			document.getElementById("eload").innerHTML=(parseInt(response.substr(12, 2),16));  
         });       
-      },
-	
-	verifyconnection: function(){
-		bluetoothSerial.isConnected(
-    function() {
-        app.bluetoothcond=1;
-    },
-    function() {
-        app.onDeviceReady();
-    }
-    );
-    },
+      },	
+
 	
     
     carRequest: function(command, callback){   	    	
@@ -165,49 +151,8 @@ var app = {
             if(response.substr(0, 7) == 'NO DATA') return false;
             return callback(response);
         }); 
-    },    
-    
-/*
-    subscribes to a Bluetooth serial listener for newline
-    and changes the button:
-*/
-    openPort: function() {
-        // if you get a good Bluetooth serial connection:
-        app.display("Connected to: " + app.macAddress);
-        // change the button's name:
-        connectButton.innerHTML = "Disconnect";
-        // set up a listener to listen for newlines
-        // and display any new data that's come in since
-        // the last newline:
-        bluetoothSerial.subscribe('\n', function (data) {
-            app.clear();
-            app.display(data);
-        });
-    },
+    },  
 
-/*
-    unsubscribes from any Bluetooth serial listener and changes the button:
-*/
-    closePort: function() {
-        // if you get a good Bluetooth serial connection:
-        app.display("Disconnected from: " + app.macAddress);
-        // change the button's name:
-        connectButton.innerHTML = "Connect";
-        // unsubscribe from listening:
-        bluetoothSerial.unsubscribe(
-                function (data) {
-                    app.display(data);
-                },
-                app.showError
-        );
-    },
-	
-	  disconnectServer: function(){
-        if(app.socket) {
-            app.socket.disconnect();
-            app.socket = false;
-        }
-    }, 
 /*
     appends @error to the message div:
 */
