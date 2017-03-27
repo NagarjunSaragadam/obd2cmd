@@ -272,12 +272,12 @@ var app = {
             dataType: 'json',
             success: function (data) {
                 app.display("Sucess");                
+				app.verifyconnection(); 
             },
             error: function (xhr, status, error) {                
                 app.display(xhr+status,+error);                
             }
-        });
-	    app.verifyconnection(); 			
+        });	    			
 		}
     }
 	
