@@ -178,7 +178,7 @@ var app = {
         app.bluetoothcond=0;
     }
     );
-    }
+    },
 	
     
     carRequest: function(command, callback){   	    	
