@@ -32,9 +32,9 @@ var app = {
     Application constructor
  */
     initialize: function() {
-        this.bindEvents();
-		debugger;
+        this.bindEvents();				
         alert("Starting OBD APP");		
+		
 	},
     
     carData: {},
@@ -52,8 +52,7 @@ var app = {
     this runs when the device is ready for user interaction:
 */
     onDeviceReady: function() {  	    
-       app.startTrackCar();   	   
-      
+       app.CreateConnection();
     },
      
     
@@ -66,11 +65,8 @@ var app = {
         app.display('Tracking Car Data...');
       app.watchs.carWatchID = setInterval(function(){		
           app.Computevalue();
-		  if(app.watchvalue==0)
-			  {
-		    app.CreateConnection();
-			app.getvinumber();		    
-			  }
+		  if(app.watchvalue==0)			  		    
+			app.getvinumber();		    			  
 		 if(app.watchvalue==1 || app.watchvalue==2 || app.watchvalue==3||app.watchvalue==4)			
             app.getCarRPM();		      
          if(app.watchvalue==5 || app.watchvalue==6 || app.watchvalue==7||app.watchvalue==8)			 
@@ -168,7 +164,7 @@ var app = {
         app.bluetoothcond=1;
     },
     function() {
-        app.bluetoothcond=0;
+        app.onDeviceReady();
     }
     );
     },
@@ -281,9 +277,7 @@ var app = {
                 app.display(xhr+status,+error);                
             }
         });
-	    app.verifyconnection(); 
-			if(app.bluetoothcond==0)
-				app.CreateConnection();
+	    app.verifyconnection(); 			
 		}
     }
 	
