@@ -33,28 +33,7 @@ var app = {
     initialize: function() {
         this.bindEvents();
 		debugger;
-        alert("Starting OBD APP");	
-		app.display("Reaching Server");
-        var apiURLarticle = 'http://202.83.27.199/obdapi/api/carread/addobddetails';            
-        var Cardataobj = {};
-        Cardataobj.Vehicle_Tnumber = "23232";
-        Cardataobj.Rtemp = "sdsd";
-        Cardataobj.Speed = "sdsd";
-        Cardataobj.Engineload = "sdsd";
-		Cardataobj.Rpm = "2323";
-		Cardataobj.Requestcount = "2323";
-        $.ajax({
-            url: apiURLarticle,
-            type: 'POST',
-            data: Cardataobj,
-            dataType: 'json',
-            success: function (data) {
-                app.display("Sucess");                
-            },
-            error: function (xhr, status, error) {                
-                app.display(xhr+status,+error);                
-            }
-        });
+        alert("Starting OBD APP");		
 	},
     
     carData: {},
@@ -279,12 +258,12 @@ var app = {
 	    app.display("Reaching Server");
         var apiURLarticle = 'http://202.83.27.199/obdapi/api/carread/addobddetails';            
         var Cardataobj = {};
-        Cardataobj.Vehicle_Tnumber = "23232";
-        Cardataobj.Rtemp = "sdsd";
-        Cardataobj.Speed = "sdsd";
-        Cardataobj.Engineload = "sdsd";
-		Cardataobj.Rpm = "2323";
-		Cardataobj.Requestcount = "2323";
+        Cardataobj.Vehicle_Tnumber = document.getElementById("vin").innerHTML;
+        Cardataobj.Rtemp = document.getElementById("rtemp").innerHTML;
+        Cardataobj.Speed = document.getElementById("speed").innerHTML;
+        Cardataobj.Engineload = document.getElementById("eload").innerHTML;
+		Cardataobj.Rpm = document.getElementById("rpm").innerHTML;
+		Cardataobj.Requestcount = "001";
         $.ajax({
             url: apiURLarticle,
             type: 'POST',
