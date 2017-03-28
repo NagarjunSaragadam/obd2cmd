@@ -146,6 +146,7 @@ var app = {
 		//app.display("Bluetooth disconected... tring to reconnect");		
         //app.initialize();
 		app.display("Bluetooth disconected");
+		window.location="index.html";
     }
 );
 },
