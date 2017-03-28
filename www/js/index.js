@@ -148,7 +148,8 @@ var app = {
 		app.watchvalue=-2;
         app.startTrackCar();
     }
-);}
+);
+},
 	
 	
     
