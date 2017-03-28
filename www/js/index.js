@@ -41,8 +41,7 @@ var app = {
     bind any events that are required on startup to listeners:
 */
     bindEvents: function() {
-        document.addEventListener('deviceready', this.onDeviceReady, false);  
-		document.getElementById('vin').innerHTML='NAN';
+        document.addEventListener('deviceready', this.onDeviceReady, false);  		
     },
 
 /*
@@ -117,7 +116,7 @@ var app = {
 	getvinumber: function(){ 	    
 	        app.carRequest('09 02', function(response){
             app.display(response.toString());                        			  
-			document.getElementById("vin").innerHTML=(response.toString());
+			document.getElementById("vin").innerHTML='VT'+(response.toString());
         });	 
     },
     getCarSpeed: function(){ 	    
