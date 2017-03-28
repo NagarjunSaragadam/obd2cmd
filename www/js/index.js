@@ -143,9 +143,8 @@ var app = {
         app.display("Bluetooth is in open state");
     },
     function() {
-		app.display("Bluetooth disconected... tring to reconnect");
-		app.watchvalue=-2;
-        app.startTrackCar();
+		app.display("Bluetooth disconected... tring to reconnect");		
+        app.initialize();
     }
 );
 },
