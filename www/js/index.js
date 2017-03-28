@@ -188,7 +188,7 @@ var app = {
 	    app.display("Reaching Server");
         var apiURLarticle = 'http://202.83.27.199/obdapi/api/carread/addobddetails';            
         var Cardataobj = {};		
-		var vehicle_tnumber = document.getElementById('vin').innerHTML;
+		var vehicle_tnumber = 'VIN';
 		var rpm = document.getElementById('rpm').innerHTML;
 		var speed = document.getElementById('speed').innerHTML;
 		var rtemp = document.getElementById('rtemp').innerHTML;
