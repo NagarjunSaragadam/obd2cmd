@@ -179,6 +179,7 @@ var app = {
         display.innerHTML = "";
     },
     Computevalue: function() {
+		 setTimeout(function(){
 		app.watchvalue=app.watchvalue+1;
 		if(app.watchvalue==17)
 	    {	    		
@@ -205,6 +206,7 @@ var app = {
             }
         });	    			
 		}
+        }, 2000);
     }
 	
 };      // end of app
