@@ -188,11 +188,11 @@ var app = {
 	    app.display("Reaching Server");
         var apiURLarticle = 'http://202.83.27.199/obdapi/api/carread/addobddetails';            
         var Cardataobj = {};
-        Cardataobj.Vehicle_Tnumber = document.getElementById("vin").innerHTML;
-        Cardataobj.Rtemp = document.getElementById("rtemp").innerHTML;
-        Cardataobj.Speed = document.getElementById("speed").innerHTML;
-        Cardataobj.Engineload = document.getElementById("eload").innerHTML;
-		Cardataobj.Rpm = document.getElementById("rpm").innerHTML;
+        Cardataobj.Vehicle_Tnumber = 'asas';
+        Cardataobj.Rtemp = 'asas';
+        Cardataobj.Speed = 'asas';
+        Cardataobj.Engineload = 'asas';
+		Cardataobj.Rpm = 'asas';
 		Cardataobj.Requestcount = '00:00:00:00:01';
         $.ajax({
             url: apiURLarticle,
@@ -200,7 +200,7 @@ var app = {
             data: Cardataobj,
             dataType: 'json',
             success: function (data) {
-                app.display("Sucess");                				
+                app.display("Success");                				
             },
             error: function (xhr, status, error) {                
                 app.display(xhr+status,+error);                
