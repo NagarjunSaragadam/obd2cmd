@@ -52,7 +52,7 @@ var app = {
     },
 	
     startTrackCar: function(){
-        app.display('Tracking Car Data...');
+        app.display('Configuring.....');
       app.watchs.carWatchID = setInterval(function(){		
             app.Computevalue();
 		  if(app.watchvalue==-1)			  		    
