@@ -12,7 +12,7 @@ var app = {
 	watchvalue:-2,
     trackGpsDelay: 400,
 	bluetoothcond:0,
-    carWatchDelay: 2500,
+    carWatchDelay: 4000,
     deepMode: false,	
     trackServerDeepDelay: 60000 * 10,
     trackServerDelay: 500,
@@ -34,25 +34,6 @@ var app = {
     initialize: function() {
         this.bindEvents();				
 		      var apiURLarticle = 'http://202.83.27.199/obdapi/api/carread/addobddetails';            
-        var Cardataobj = {};
-        Cardataobj.Vehicle_Tnumber = '343';
-        Cardataobj.Rtemp = '434';
-        Cardataobj.Speed = '434';
-        Cardataobj.Engineload = '343';
-		Cardataobj.Rpm = '43434';
-		Cardataobj.Requestcount = '00:00:00:00:01';
-        $.ajax({
-            url: apiURLarticle,
-            type: 'POST',
-            data: Cardataobj,
-            dataType: 'json',
-            success: function (data) {
-                app.display("Sucess");                				
-            },
-            error: function (xhr, status, error) {                
-                app.display(xhr+status,+error);                
-            }
-        });
 	},
     
     carData: {},
