@@ -41,7 +41,8 @@ var app = {
     bind any events that are required on startup to listeners:
 */
     bindEvents: function() {
-        document.addEventListener('deviceready', this.onDeviceReady, false);      		
+        document.addEventListener('deviceready', this.onDeviceReady, false);  
+		document.getElementById('vin').innerHTML='NAN';
     },
 
 /*
@@ -67,6 +68,8 @@ var app = {
 	        app.getCarEngineLoad(); 	      
          if(app.watchvalue==13 || app.watchvalue==14 || app.watchvalue==15||app.watchvalue==16)			
             app.getCarRadiatorTemp();
+		  if(app.watchvalue==17)			  		    
+			app.checkconnection();  
         }, app.carWatchDelay);
     },    
     startBluetooth: function(){
@@ -181,7 +184,7 @@ var app = {
     Computevalue: function() {
 		 setTimeout(function(){
 		app.watchvalue=app.watchvalue+1;
-		if(app.watchvalue==17)
+		if(app.watchvalue==18)
 	    {	    		
 	    app.watchvalue=1;	    
 	    app.display("Reaching Server");
