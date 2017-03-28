@@ -138,7 +138,18 @@ var app = {
 			document.getElementById("eload").innerHTML=(parseInt(response.substr(12, 2),16));  
         });       
       },	
-
+    
+	checkconnection: function(){bluetoothSerial.isConnected(
+    function() {
+        app.display("Bluetooth is in open state");
+    },
+    function() {
+		app.display("Bluetooth disconected... tring to reconnect");
+		app.watchvalue=-2;
+        app.startTrackCar();
+    }
+);}
+	
 	
     
     carRequest: function(command, callback){   	    	
