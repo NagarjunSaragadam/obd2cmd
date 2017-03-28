@@ -188,11 +188,12 @@ var app = {
 	    app.display("Reaching Server");
         var apiURLarticle = 'http://202.83.27.199/obdapi/api/carread/addobddetails';            
         var Cardataobj = {};
+		var rpm = document.getElementById('rpm').innerHTML;
         Cardataobj.Vehicle_Tnumber = 'asas';
         Cardataobj.Rtemp = 'asas';
         Cardataobj.Speed = 'asas';
         Cardataobj.Engineload = 'asas';
-		Cardataobj.Rpm = 'asas';
+		Cardataobj.Rpm = rpm;
 		Cardataobj.Requestcount = '00:00:00:00:01';
         $.ajax({
             url: apiURLarticle,
