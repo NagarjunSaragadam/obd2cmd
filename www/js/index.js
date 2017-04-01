@@ -12,7 +12,7 @@ var app = {
 	watchvalue:-2,
     trackGpsDelay: 400,
 	bluetoothcond:0,
-    carWatchDelay: 4000,
+    carWatchDelay: 1000,
     deepMode: false,	
     trackServerDeepDelay: 60000 * 10,
     trackServerDelay: 500,
@@ -32,10 +32,49 @@ var app = {
     Application constructor
  */
     initialize: function() {
-        this.bindEvents();						     
+        this.bindEvents();		
+		app.display('Start Reading');		
+		window.resolveLocalFileSystemURL(cordova.file.dataDirectory, function(dir) {
+		console.log("got main dir",dir);
+		dir.getFile("test.txt", {create:true}, function(file) {
+			console.log("got the file", file);
+			logOb = file;
+			app.writeLog("App started");			
+		});
+	});
+   app.justForTesting();
 	},
     
     carData: {},
+	
+	
+	writeLog: function(str) {
+    if(!logOb) return;
+    var log = str + " [" + (new Date()) + "]\n";
+    console.log("going to log "+log);
+    logOb.createWriter(function(fileWriter) {
+        
+        fileWriter.seek(fileWriter.length);
+        
+        var blob = new Blob([log], {type:'text/plain'});
+        fileWriter.write(blob);
+        console.log("ok, in theory i worked");
+    }, fail);
+},
+	
+	 justForTesting: function() {
+    logOb.file(function(file) {
+        var reader = new FileReader();
+
+        reader.onloadend = function(e) {
+            console.log(this.result);
+        };
+
+        reader.readAsText(file);
+    }, fail);
+
+},
+
 
 /*
     bind any events that are required on startup to listeners:
@@ -90,7 +129,7 @@ var app = {
                 app.state('bluetooth', false);
                 app.log('Bluetooth Off', true);
             });
-       }, 2000);
+       }, 500);
     },  
     getCarRPM: function(){ 	    
         app.carRequest('01 0C', function(response){
@@ -222,11 +261,11 @@ var app = {
                 app.display("Success");                				
             },
             error: function (xhr, status, error) {                
-                app.display(xhr+status,+error);                
+                app.display(error);  
             }
         });	    			
 		}
-        }, 2000);
+        }, 500);
     }
 	
 };      // end of app
