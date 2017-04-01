@@ -37,7 +37,7 @@ var app = {
 		window.resolveLocalFileSystemURL(cordova.file.dataDirectory, function(dir) {
 		console.log("got main dir",dir);
 		dir.getFile("test.txt", {create:true}, function(file) {
-			console.log("got the file", file);
+			console.log('got the file'+file);
 			logOb = file;
 			app.writeLog("App started");			
 		});
@@ -51,14 +51,14 @@ var app = {
 	writeLog: function(str) {
     if(!logOb) return;
     var log = str + " [" + (new Date()) + "]\n";
-    console.log("going to log "+log);
+		console.log("going to log "+log);    
     logOb.createWriter(function(fileWriter) {
         
         fileWriter.seek(fileWriter.length);
         
         var blob = new Blob([log], {type:'text/plain'});
         fileWriter.write(blob);
-        console.log("ok, in theory i worked");
+        app.display('ok, in theory i worked);
     }, fail);
 },
 	
@@ -67,7 +67,8 @@ var app = {
         var reader = new FileReader();
 
         reader.onloadend = function(e) {
-            console.log(this.result);
+			app.display('Reading..');
+            app.display(this.result);
         };
 
         reader.readAsText(file);
