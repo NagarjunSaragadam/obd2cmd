@@ -58,7 +58,7 @@ var app = {
         
         var blob = new Blob([log], {type:'text/plain'});
         fileWriter.write(blob);
-        app.display('ok, in theory i worked);
+        app.display('ok, in theory i worked');
     }, fail);
 },
 	
