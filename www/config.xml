@@ -12,7 +12,7 @@
     <preference name="fullscreen" value="false" />
     <preference name="webviewbounce" value="true" />
     <plugin name="cordova-plugin-bluetooth-serial" />
-	<plugin name="cordova-plugin-imei" />
+	<plugin name="org.hygieiasoft.cordova.uid" />
 	
 	
 	
