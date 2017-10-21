@@ -1,31 +1,10 @@
 <!DOCTYPE html >
 
 <html>
-	
-    <head>
-        <title>OBD CMD</title>
-    </head>
-<meta http-equiv="Content-Security-Policy" 
-         content="default-src *; 
-                  style-src * 'self' 'unsafe-inline' 'unsafe-eval'; 
-                  script-src * 'self' 'unsafe-inline' 'unsafe-eval';">
-    <body>
-        <div class="app">
-            <div id="ui">                                				
-				VIN:<label id="vin"></label>				
-				RPM:<label id="rpm"></label>
-				SPEED:<label id="speed"></label>
-				ELOAD:<label id="eload"></label>
-				RTEMP:<label id="rtemp"></label>
-            </div>            
-        <div id="message"></div>	    
-        </div>
-<script type="text/ecmascript" src="js/jquery.min.js"></script>		
-<script type="text/javascript" src="cordova.js"></script>
-<script type="text/javascript" src="js/jquery1.11.1-min.js"></script>
-<script type="text/javascript" src="js/index.js"></script>   		
-<script language="javascript">   
-  app.initialize();
-        </script>
-    </body>
-</html>
+   <body>
+     <h1 id="demo"></h1>
+    <script type="text/javascript" src="cordova.js"></script>
+    <script src="js/index.js"></script>
+    <script> app.initialize(); </script>
+   </body>
+ </html>
