@@ -7,7 +7,10 @@ var app = {
             document.addEventListener('deviceready', app.onDeviceReady, false);
         },
         onDeviceReady: function () {
-            window.plugins.imeiplugin.getImei(callback);    
+                var element=document.getElementById("demo");
+                element.value=cordova.plugins.uid.IMEI;
+            console.log(cordova.plugins.uid.IMEI);
+                alert(cordova.plugins.uid.IMEI);
         }
     };
     function callback(imei) {
