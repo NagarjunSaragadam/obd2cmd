@@ -11,9 +11,8 @@
     <access origin="*" />
     <preference name="fullscreen" value="false" />
     <preference name="webviewbounce" value="true" />
-    <plugin name="cordova-plugin-bluetooth-serial" />
-	<plugin name="cordova-plugin-imei" />
-	<plugin name="cordova.plugins.DeviceInformation"/>
+    <plugin name="cordova-plugin-bluetooth-serial" />	
+    <plugin name="cordova.plugins.uid"/>
 	
 	
 	<plugin name="cordova-plugin-insomnia" version="4.1.0" source="npm" />
