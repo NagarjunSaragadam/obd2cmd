@@ -1,20 +1,33 @@
-var app = {
-        // Application Constructor
-        initialize: function () {
-            app.bindEvents();
-        },
-        bindEvents: function () {
-            document.addEventListener('deviceready', app.onDeviceReady, false);
-        },
-        onDeviceReady: function () {
-                var element=document.getElementById("demo");
-                element.value=cordova.plugins.uid.IMEI;
-            console.log(cordova.plugins.uid.IMEI);
-                alert(cordova.plugins.uid.IMEI);
-        }
-    };
-    function callback(imei) {
-        var element=document.getElementById("demo");
-        element.value=imei;
 
+var app = {
+   
+    
+ */
+    initialize: function() {
+        this.bindEvents();		
+	},
+
+/*
+    bind any events that are required on startup to listeners:
+*/
+    bindEvents: function() {
+        document.addEventListener('deviceready', this.onDeviceReady, false);  		
+    },
+
+/*
+    this runs when the device is ready for user interaction:
+*/
+    onDeviceReady: function() {  	    
+       var deviceInfo = cordova.require("cordova/plugin/DeviceInformation");
+deviceInfo.get(function(result) {
+        alert("result = " + result);
+    }, function() {
+        alert("error");
+    });
     }
+	
+   
+    
+	
+};      // end of app
+
