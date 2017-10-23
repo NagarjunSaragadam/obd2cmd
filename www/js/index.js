@@ -2,7 +2,7 @@
 var app = {
    
     
- */
+ 
     initialize: function() {
         this.bindEvents();		
 	},
@@ -18,16 +18,14 @@ var app = {
     this runs when the device is ready for user interaction:
 */
     onDeviceReady: function() {  	    
-       var deviceInfo = cordova.require("cordova/plugin/DeviceInformation");
-deviceInfo.get(function(result) {
-        alert("result = " + result);
-    }, function() {
-        alert("error");
-    });
+alert(device.uuid);
     }
 	
    
+
+
+
     
 	
-};      // end of app
+};     
 
