@@ -19,6 +19,7 @@ var app = {
 */
     onDeviceReady: function() {  	    
 alert(device.uuid);
+	    alert(device.IMEI);
     }
 	
    
