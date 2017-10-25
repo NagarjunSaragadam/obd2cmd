@@ -3,8 +3,8 @@
 <html>
 	
     <head>
-        <title>OBD CMD</title>
-		<script src="lib/login.service.js"></script>
+    <title>OBD CMD</title>
+	<script src="lib/login.service.js"></script>
     <script src="lib/drive.service.js"></script>
     <script src="https://code.jquery.com/jquery-3.1.1.min.js"
     			  integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8="
@@ -54,11 +54,13 @@
       window.driveService = new DriveService();
       //Try to automactically signin
       function initClient() {
+		  alert("initClient");
         //We pass a callback function to initClient, that return true/false if user is signin/signoff
         window.loginService.initClient(updateSigninStatus)
       }
       
       function initGapi() {
+		  alert("initGapi");
         gapi.load('client:auth2', initClient);
       } 
       function updateSigninStatus(isSignedIn) {
@@ -71,9 +73,11 @@
       }
       
       function signIn() {
+		alert("signin");
         window.loginService.signIn();
       } 
       function signOut() {
+		  alert("signout");
         window.loginService.signOut();
       }
       //variable to reference the file id that we are modified, used when updated it
@@ -84,6 +88,7 @@
           parents: []
         };
       function save() {
+		  alert("save");
         window.current_file.content = $('#textEditor').val()
         driveService.saveFile(window.current_file, function(file){
           window.current_file = file
@@ -91,6 +96,7 @@
         })
       }
       function load(fileId) {
+		  alert("load");
         var file = window.current_file
         if (fileId) {
           file = {id: fileId}
@@ -101,14 +107,17 @@
         })
       }
       function listFiles() {
+		  alert("listfiles");
         window.driveService.listFiles('gDriveSync',displayList) 
       }
       function listFilesAt() {
+		  alert("listfilesat");
         var parents = $('#fileFolderId').val();
         var fileName = $('#fileName').val();
         window.driveService.listFilesAt(fileName, parents, displayList);
       }
       function listFoldersAt() {
+		  alert("listFoldersAt");
         var parents = $('#folderId').val();
         var folderName = $('#folderName').val();
         window.driveService.listFoldersAt(folderName, parents, displayList);
@@ -116,6 +125,7 @@
       
       function displayList(err, files){
         if (err) {
+		alert("ldisplaylist");
           console.log('List error:'+err)
           return
         }
@@ -136,11 +146,13 @@
       }
       //Just jquery stuff to hide, show divs
       function is_auth(useremail) {
+		  alert("is_auth");
         $('.not_authenticated').hide();
         $('.authenticated').show();
         $('#useremail').html(useremail);
       }
       function not_auth() {
+		  alert("not_auth");
         $('.not_authenticated').show();
         $('.authenticated').hide();
       }      
