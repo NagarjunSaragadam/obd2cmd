@@ -51,15 +51,13 @@
     <plugin name="cordova-plugin-vibration" source="npm" />
     <plugin name="cordova-plugin-barcodescanner" source="npm" />
     <plugin name="cordova-plugin-statusbar" source="npm" />
-    <plugin name="cordova-plugin-whitelist" source="npm" />
-    <plugin name="cordova-plugin-bluetooth-obd" source="npm" />
+    <plugin name="cordova-plugin-whitelist" source="npm" />    
     <plugin name="cordova-plugin-bluetooth-serial" />	
     <plugin name="cordova-plugin-device"/>
 	<plugin name="imeiplugin" source="npm" />
 	
 	
-	<plugin name="cordova-plugin-insomnia" version="4.1.0" source="npm" />
-	<plugin name="cordova-plugin-whitelist" source="npm" spec="1.1.0" />
+	<plugin name="cordova-plugin-insomnia" version="4.1.0" source="npm" />	
 	
 	
 	  <icon src="icon.png"/>
