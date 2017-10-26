@@ -17,9 +17,8 @@ var app = {
 /*
     this runs when the device is ready for user interaction:
 */
-    onDeviceReady: function() {  	    
-alert(device.uuid);
-	    alert(device.IMEI);
+    onDeviceReady: function() {  	            
+		document.getElementById('deviceid').innerHTML=device.uuid;
     }
 	
    
