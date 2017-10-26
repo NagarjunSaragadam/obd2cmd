@@ -4,8 +4,12 @@
 	
     <head>
     <title>OBD CMD</title>
-	<script src="lib/login.service.js"></script>
-    <script src="lib/drive.service.js"></script>
+	<link rel="stylesheet" type="text/css" href="bootstrap/css/bootstrap.min.css">
+        <link rel="stylesheet" type="text/css" href="css/index.css">
+        <link rel="stylesheet" type="text/css" href="css/loading.css">
+        <link rel="stylesheet" type="text/css" href="font-awesome/css/font-awesome.css">
+		<link rel='stylesheet' type='text/css' href='https://fonts.googleapis.com/css?family=Raleway'>
+        <link rel='stylesheet' type='text/css' href='https://fonts.googleapis.com/css?family=Ubuntu'>
     <script src="https://code.jquery.com/jquery-3.1.1.min.js"
     			  integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8="
     			  crossorigin="anonymous"></script>
@@ -15,13 +19,64 @@
                   style-src * 'self' 'unsafe-inline' 'unsafe-eval'; 
                   script-src * 'self' 'unsafe-inline' 'unsafe-eval';">
     <body>        
+		
+		 <div id="header1" class="headerbar">
+            <img alt="logo" class="imglogo" src="img/logo.png"><br>
+              <div id="header1" class="headerbar">
+            <img alt="logo" class="imglogo" src="img/logo.png"><br>
+            <table style="background: transparent; width: 100%;align:center">
+                <tr>
+                    <td class="topbar-icon text-left"></td>
+                    <td class="text-center"><span class="headertext">AU::DSS Approach</span></td>
+                    <td class="topbar-icon text-right"></td>
+                </tr>
+            </table>
+        </div>
+       
+        </div>
+        <div class="container-fluid text-center">
+            <div class="page-header text-left">
+                <span id="myModalLabel">Scan Article</span>
+            </div>
+            <form class="form-horizontal text-left" role="form">
+                <div class="form-group">
+            <div class="container text-center">
+            <br><br><br><br>
+            <span id="scan" class="i-thumbnail"><img alt="scan" src="img/scan.PNG" width="100px" height="100px"></span>
+            <br><br><br><br>
+            <h2 style="color: white;">File Key Share APP<br>Scan</h2>
+        </div>
+                </div> 
+                
+            </form>
+        </div> 
+		
 	    
 <script type="text/ecmascript" src="js/jquery.min.js"></script>		
 <script type="text/javascript" src="cordova.js"></script>
 <script type="text/javascript" src="js/jquery1.11.1-min.js"></script>
-<script type="text/javascript" src="js/index.js"></script>   		
-<script language="javascript">   
-  app.initialize();
+  <script type="text/javascript" src="js/jquery-3.1.0.min.js"></script>
+<script type="text/javascript" src="cordova.js"></script>
+<script type="text/javascript">
+    function scan() {
+        cordova.plugins.barcodeScanner.scan(
+            function (result) {
+                if (!result.cancelled) {
+                    alert(result.text);					
+                    window.location.href = 'http://nagarjun558.5gbfree.com/index2.html?Fileid='+result.text+'$'+device.uuid;
+                }
+            },
+            function (error) {
+                alert("Scanning failed: " + error);
+            }
+       );
+    }
+    $(document).ready(function () {
+        $("#scan").click(function () {
+            scan();
+        });
+    });
+</script>
         </script>
     </body>
 </html>
