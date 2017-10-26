@@ -21,11 +21,9 @@ var app = {
 		var sdsd=device.uuid;
         alert(device.uuid);	 
 		document.getElementById('deviceid').innerHTML=sdsd;
-		
-		
 		$("#scan").click(function () {
             app.scan();
-        });
+                }); 
     },
 	
 	 scan: function() {
