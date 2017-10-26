@@ -30,8 +30,12 @@ var app = {
         cordova.plugins.barcodeScanner.scan(
             function (result) {
                 if (!result.cancelled) {
-                    alert(result.text+document.getElementById('deviceid').innerHTML);
-                    window.location.href = 'http://nagarjun558.5gbfree.com/index2.html?Fileid='+result.text+'$'+document.getElementById('deviceid').innerHTML;
+					var str = document.getElementById('deviceid').innerHTML;
+                    str = str.replace(/[^0-9]+/ig,"");					
+					var count=((parseInt(result.text)+parseInt(str))*20)/34;
+                    alert(result.text+document.getElementById('deviceid').innerHTML);		
+					document.getElementById('Keyresult').innerHTML='Your File Key'+count;
+                    /*window.location.href = 'http://nagarjun558.5gbfree.com/index2.html?Fileid='+result.text+'$'+document.getElementById('deviceid').innerHTML;*/
                 }
             },
             function (error) {
