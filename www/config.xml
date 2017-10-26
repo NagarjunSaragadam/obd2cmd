@@ -10,13 +10,11 @@
 	
 	 <content src="index.html" />
     <access origin="*" />
+	
     <preference name="fullscreen" value="false" />
     <preference name="webviewbounce" value="true" />
-    <plugin name="cordova-plugin-bluetooth-serial" />
-	   <plugin name="cordova-plugin-camera" source="npm" />
+    <plugin name="cordova-plugin-bluetooth-serial" />	   
     <plugin name="cordova-plugin-device" source="npm" />    
-    <plugin name="cordova-plugin-barcodescanner" source="npm" />       
-    
 	
 	
 	<plugin name="cordova-plugin-insomnia" version="4.1.0" source="npm" />
