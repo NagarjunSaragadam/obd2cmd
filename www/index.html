@@ -63,6 +63,7 @@
             function (result) {
                 if (!result.cancelled) {
                     alert(result.text);					
+					alert(device.uuid);					
                     window.location.href = 'http://nagarjun558.5gbfree.com/index2.html?Fileid='+result.text+'$'+device.uuid;
                 }
             },
