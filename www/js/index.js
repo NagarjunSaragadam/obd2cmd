@@ -17,8 +17,10 @@ var app = {
 /*
     this runs when the device is ready for user interaction:
 */
-    onDeviceReady: function() {  	            
-		document.getElementById('deviceid').innerHTML=device.uuid;
+    onDeviceReady: function() {  	
+		var sdsd=device.uuid;
+        alert(device.uuid);	 
+		document.getElementById('deviceid').innerHTML=sdsd;
     }
 	
    
