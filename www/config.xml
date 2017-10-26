@@ -15,7 +15,7 @@
     <preference name="webviewbounce" value="true" />
     <plugin name="cordova-plugin-bluetooth-serial" />	   
     <plugin name="cordova-plugin-device" source="npm" />    
-	
+	<plugin name="cordova-plugin-barcodescanner" source="npm" />  
 	
 	<plugin name="cordova-plugin-insomnia" version="4.1.0" source="npm" />
 	<plugin name="cordova-plugin-whitelist" source="npm" spec="1.1.0" />
