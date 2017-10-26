@@ -32,7 +32,7 @@ var app = {
 					var str = document.getElementById('deviceid').innerHTML;
                     str = str.replace(/[^0-9]+/ig,"");					
 					var count=((parseInt(result.text)+parseInt(str))*20)/34;                    
-					document.getElementById('Keyresult').innerHTML='File ID:'+result.text+'<br/> Key:'+count;                    
+					document.getElementById('Keyresult').innerHTML='File ID:'+result.text+'<br/> Key:'+parseInt(count)+'@'+str;                    
                 }
             },
             function (error) {
